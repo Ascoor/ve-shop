@@ -8,22 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-       
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); // اسم الدور
-            $table->string('description')->nullable(); // وصف الدور
+            $table->string('name')->unique();
+            $table->string('arabic_name')->nullable(); // Adding the Arabic name column
             $table->timestamps();
         });
+        
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('roles');
     }
