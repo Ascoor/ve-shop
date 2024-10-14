@@ -9,15 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('country_id')->constrained()->onDelete('cascade'); // ربط الدولة بالمقاطعة
+            $table->string('name')->unique(); // اسم المقاطعة
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('states');
     }
 };

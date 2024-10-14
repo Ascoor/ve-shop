@@ -20,8 +20,8 @@ class CorsMiddleware
         $allowedOrigins = [
             'http://localhost:3000',
             'http://127.0.0.1:3000',
-            'http://ve-shop.co',
-            'https://ve-shop.co'
+            'http://app.hadathah.org',
+            'https://app.hadathah.org'
         ];
         
         $origin = $request->headers->get('origin');

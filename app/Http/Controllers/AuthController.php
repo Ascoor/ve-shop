@@ -37,7 +37,6 @@ class AuthController extends Controller
         return response(['message' => 'success']);
     }
     
-    
     public function login(Request $request)
     {
         $request->validate([
@@ -45,19 +44,17 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken('YourAppName')->accessToken;
 
-
-            return response()->json([
-                'token' => $token,
-                'user' => $user,
-            ], 200);
-        } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['token' => $token, 'user' => $user], 200);
         }
+
+        throw ValidationException::withMessages(['email' => 'Invalid email or password.']);
     }
+
 
 
     public function logout(Request $request)
