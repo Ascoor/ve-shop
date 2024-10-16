@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index()
-    {
-        return Product::all();
-    }
+{
+    // جلب المنتجات مع بيانات التصنيف والعلامة التجارية باستخدام Eloquent
+    return Product::with(['category', 'brand','stock'])->get();
+}
+
 
     public function store(Request $request)
     {

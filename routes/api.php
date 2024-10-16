@@ -32,6 +32,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\SettingController;
@@ -76,6 +77,8 @@ Route::group(['middleware' => ['cors']], function () {
 
     // ** عروض **
     Route::apiResource('offers', OfferController::class);
+    // ** براندات **
+    Route::apiResource('brands', BrandController::class);
 
     // ** مراجعات **
     Route::apiResource('reviews', ReviewController::class);

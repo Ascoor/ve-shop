@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
+    $table->foreignId('category_id')->constrained()->onDelete('cascade'); // تصنيف المنتج
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

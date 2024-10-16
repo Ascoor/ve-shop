@@ -10,15 +10,28 @@ class Product extends Model
     use HasFactory;
 
 
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = ['name', 'description', 'price', 'category_id', 'brand_id'];
 
-    public function categories()
+    // علاقة "منتج إلى تصنيف" (تصنيف واحد لكل منتج)
+    public function category()
     {
-        return $this->belongsToMany(Category::class, 'product_categories');
+        return $this->belongsTo(Category::class);
     }
 
-    public function brands()
+    // علاقة "منتج إلى علامة تجارية" (براند واحد لكل منتج)
+    public function brand()
     {
-        return $this->belongsToMany(Brand::class, 'product_brands');
+        return $this->belongsTo(Brand::class);
     }
+
+    // علاقة "منتج إلى تاجز" (علاقة متعدد إلى متعدد)
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'product_tag');
+    }
+      // العلاقة بين المنتج والمخزون
+      public function stock()
+      {
+          return $this->hasOne(Stock::class);
+      }
 }

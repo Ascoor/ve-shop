@@ -10,13 +10,13 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('state_id')->constrained()->onDelete('cascade'); // ربط المدينة بالمقاطعة
-            $table->string('name')->unique(); // اسم المدينة
-            $table->timestamps();
-        });
+    {Schema::create('cities', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('state_id')->nullable()->constrained()->onDelete('cascade'); // ربط المدينة بالمقاطعة ويمكن أن تكون فارغة
+        $table->string('name')->unique()->nullable(); // اسم المدينة
+        $table->timestamps();
+    });
+    
     
     }
 
