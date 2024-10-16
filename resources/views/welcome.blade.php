@@ -16,37 +16,41 @@
             body {
                 font-family: 'Figtree', sans-serif;
                 background-color: #f3f4f6;
+                margin: 0;
+                padding: 0;
             }
             .landing-cover {
                 background-image: url('/images/cover-image.webp'); /* Make sure the image path is correct */
                 background-size: cover;
                 background-position: center;
-                height: 400px; /* Adjust as needed */
+                height: 100vh; /* Full screen height */
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .cover-content {
                 color: #fff;
                 background-color: rgba(0, 0, 0, 0.5);
-                padding: 20px;
+                padding: 40px;
                 text-align: center;
                 border-radius: 10px;
             }
             .title {
-                font-size: 2rem;
+                font-size: 3rem;
                 font-weight: bold;
+                margin: 0;
             }
             .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
                 margin-top: 10px;
             }
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
-            <div class="landing-cover w-full">
-                <div class="cover-content">
-                    <h1 class="title">Welcome to ve-store API</h1>
-                    <p class="subtitle">Your gateway to seamless e-commerce integration</p>
-                </div>
+        <div class="landing-cover">
+            <div class="cover-content">
+                <h1 class="title">Welcome to ve-store API</h1>
+                <p class="subtitle">Your gateway to seamless e-commerce integration</p>
             </div>
         </div>
     </body>
