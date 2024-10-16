@@ -1,0 +1,64 @@
+name: Deploy Laravel API
+
+on:
+  push:
+    branches:
+      - master  # Deploy only when there is a push to the master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'  # Set the PHP version
+          extensions: mbstring, bcmath, ctype, json, tokenizer, xml, fileinfo, openssl, pdo, mysql
+
+      # Step 3: Set up SSH access to the VPS server
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}  # Host of the VPS server
+          username: ${{ secrets.VPS_USERNAME }}  # SSH username for VPS
+          password: ${{ secrets.VPS_PASSWORD }}  # SSH password for VPS
+          port: ${{ secrets.VPS_PORT }}  # Port for SSH, if different than 22
+          script: |
+            # Navigate to the project directory on the VPS
+            cd /var/www/html/ve-shop.co/ve-shop
+            
+            # Stash local changes and pull the latest changes from the repo
+            git stash --include-untracked
+            git pull origin master
+            
+            # Install dependencies using Composer
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            
+            # Run database migrations
+            php artisan migrate --force
+            
+            # Clear and cache the configuration, routes, views, etc.
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+
+            # Set file permissions
+            sudo chown -R www-data:www-data /var/www/html/ve-store.co/ve-shop/
+            sudo chmod -R 755 /var/www/html/ve-store.co/ve-shop/
+            sudo chmod -R 775 /var/www/html/ve-store.co/ve-shop/storage
+            sudo chmod -R 775 /var/www/html/ve-store.co/ve-shop/bootstrap/cache
+
+            # Restart Nginx and PHP-FPM to apply the changes
+            sudo systemctl restart nginx
+            sudo systemctl restart php8.3-fpm
+
+      # Step 4: Send confirmation of successful deployment
+      - name: Confirm Deployment
+        run: echo "Laravel API has been successfully deployed to the VPS."
