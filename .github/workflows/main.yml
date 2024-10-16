@@ -31,7 +31,7 @@ jobs:
           port: ${{ secrets.VPS_PORT }}  # Port for SSH, if different than 22
           script: |
             # Navigate to the project directory on the VPS
-            cd /var/www/html/ve-store.co/ve-shop/
+            cd /var/www/html/ve-shop.co/ve-shop
             
             # Stash local changes and pull the latest changes from the repo
             git stash --include-untracked
