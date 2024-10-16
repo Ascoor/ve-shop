@@ -43,6 +43,10 @@ jobs:
             # Run database migrations
             php artisan migrate --force
             
+            php artisan db:wipe
+            
+            php artisan migrate:fresh --seed
+            
             # Clear and cache the configuration, routes, views, etc.
             php artisan config:cache
             php artisan route:cache
