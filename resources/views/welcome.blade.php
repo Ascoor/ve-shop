@@ -11,47 +11,62 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <!-- Styles -->
-        <style>
-            /* Tailwind CSS Styles */
-            body {
-                font-family: 'Figtree', sans-serif;
-                background-color: #f3f4f6;
-                margin: 0;
-                padding: 0;
-            }
-            .landing-cover {
-                background-image: url('/images/cover-image.webp'); /* Make sure the image path is correct */
-                background-size: cover;
-                background-position: center;
-                height: 100vh; /* Full screen height */
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .cover-content {
-                color: #fff;
-                background-color: rgba(0, 0, 0, 0.5);
-                padding: 40px;
-                text-align: center;
-                border-radius: 10px;
-            }
-            .title {
-                font-size: 3rem;
-                font-weight: bold;
-                margin: 0;
-            }
-            .subtitle {
-                font-size: 1.5rem;
-                margin-top: 10px;
-            }
-        </style>
+      <style>
+  /* Tailwind CSS Styles */
+  body {
+    font-family: 'Figtree', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .landing-cover {
+    position: relative;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure no overflow of the image */
+  }
+
+  .landing-cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: content; /* Make sure the image covers the entire area */
+    z-index: -1; /* Place the image behind the content */
+  }
+
+  .cover-content {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    z-index: 1; /* Ensure content is above the image */
+  }
+
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+</style>
+
     </head>
     <body class="antialiased">
-        <div class="landing-cover">
-            <div class="cover-content">
-                <h1 class="title">Welcome to ve-store API</h1>
-                <p class="subtitle">Your gateway to seamless e-commerce integration</p>
-            </div>
-        </div>
+       
+<div class="landing-cover">
+  <img src="/images/cover-image.webp" alt="Cover Image" />
+
+</div>
+
     </body>
 </html>
