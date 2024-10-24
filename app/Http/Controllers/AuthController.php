@@ -21,15 +21,15 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $activationCode = Str::random(30); // Generate a random activation code
-
+        // $activationCode = Str::random(30); // Generate a random activation code
 
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-        
+            'role_id' => 3, // تعيين قيمة role_id الافتراضية كـ 3
         ]);
+        
 
         // Sending activation email
         // Mail::to($user->email)->send(new ActivationEmail($user));
