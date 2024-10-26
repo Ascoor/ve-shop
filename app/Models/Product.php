@@ -34,4 +34,9 @@ class Product extends Model
       {
           return $this->hasOne(Stock::class);
       }
-}
+      public function images()
+      {
+          return $this->morphMany(Image::class, 'imageable');
+      }
+  
+    }

@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     use HasApiTokens;
+
     public function register(Request $request)
     {
         $validatedData = $request->validate([
@@ -21,47 +21,46 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        // $activationCode = Str::random(30); // Generate a random activation code
+        try {
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'role_id' => 3,
+            ]);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'role_id' => 3, // تعيين قيمة role_id الافتراضية كـ 3
-        ]);
-        
+            $token = $user->createToken('VeShop')->accessToken;
 
-        // Sending activation email
-        // Mail::to($user->email)->send(new ActivationEmail($user));
+            return response()->json([
+                'message' => 'User successfully registered.',
+                'user' => $user,
+                'token' => $token,
+            ], 201);
+        } catch (Exception $e) {
+            if (strpos($e->getMessage(), 'users_email_unique') !== false) {
+                return response()->json(['error' => 'Email already in use.'], 422);
+            }
 
-        return response(['message' => 'success']);
-    }
-    
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
-        ]);
-
-        
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $token = $user->createToken('YourAppName')->accessToken;
-
-            return response()->json(['token' => $token, 'user' => $user], 200);
+            return response()->json(['error' => 'Registration failed.'], 500);
         }
+    }
+    public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'email|required',
+        'password' => 'required'
+    ]);
 
-        throw ValidationException::withMessages(['email' => 'Invalid email or password.']);
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = Auth::user();
+        $token = $user->createToken('VeShop')->accessToken;
+
+        // جلب الصورة المرتبطة بالمستخدم
+        $user->load('image');
+
+        return response()->json(['token' => $token, 'user' => $user], 200);
     }
 
-
-
-    public function logout(Request $request)
-    {
-        // Assuming you're storing tokens in the "personal_access_tokens" table
-        $request->user()->token()->revoke();
-        return response(['message' => 'You have been successfully logged out!'], 200);
-    }
-    
-    }
+    return response()->json(['error' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'], 401);
+}
+}
