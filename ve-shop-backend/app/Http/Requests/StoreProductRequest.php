@@ -12,8 +12,10 @@ class StoreProductRequest extends FormRequest
     }
 
     public function rules(): array
-    {
-        return [
+    { 
+        return [ 
+            'brand_id' => ['nullable', 'exists:brands,id'],
+ 
             'name_en' => ['required', 'string', 'max:255'],
             'name_ar' => ['required', 'string', 'max:255'],
             'description_en' => ['nullable', 'string'],

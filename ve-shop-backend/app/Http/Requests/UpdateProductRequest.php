@@ -12,8 +12,10 @@ class UpdateProductRequest extends FormRequest
     }
 
     public function rules(): array
-    {
-        return [
+    { 
+        return [ 
+            'brand_id' => ['sometimes', 'exists:brands,id'],
+  
             'name_en' => ['sometimes', 'string', 'max:255'],
             'name_ar' => ['sometimes', 'string', 'max:255'],
             'description_en' => ['nullable', 'string'],
