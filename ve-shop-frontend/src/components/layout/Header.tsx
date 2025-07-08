@@ -25,9 +25,11 @@ export const Header = () => {
   const isRTL = direction === "rtl";
 
   // ترتيب المناطق (zones) حسب اللغة
+  // For English (LTR): search on the left, actions then logo on the right.
+  // For Arabic (RTL): mirrored ordering.
   const zones = isRTL
-    ? ['actions', 'search', 'logo']
-    : ['logo', 'search', 'actions'];
+    ? ['logo', 'actions', 'search']
+    : ['search', 'actions', 'logo'];
 
   return (
     <header
@@ -98,7 +100,7 @@ export const Header = () => {
   key="actions"
   className={cn(
     "flex items-center gap-1 sm:gap-2 min-w-[100px]",
-    isRTL ? "order-1 justify-start" : "order-3 justify-end"
+    isRTL ? "justify-start mr-auto" : "justify-end ml-auto"
   )}
 >
   {/* MobileMenu: المكان حسب الاتجاه */}
