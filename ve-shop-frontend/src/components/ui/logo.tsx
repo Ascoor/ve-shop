@@ -1,26 +1,30 @@
 
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/ui/theme-provider";
 import { useLanguageStore } from "@/store/languageStore";
 import { cn } from "@/lib/utils";
 
 export const Logo = ({ className = "" }) => {
-  const { theme, resolvedTheme } = useTheme() || { theme: "light" };
+  const { theme } = useTheme();
+  const getCurrentTheme = () => {
+    if (theme === "system") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    return theme || "light";
+  };
   const { direction } = useLanguageStore();
 
-  const [logoSrc, setLogoSrc] = useState(() => {
-    // resolvedTheme is preferred since some next-themes versions
-    // initially return "system" for theme
-    const currentTheme = resolvedTheme || theme || "light";
-    return currentTheme === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png";
-  });
+  const [logoSrc, setLogoSrc] = useState(() =>
+    getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
+  );
 
   useEffect(() => {
-    const currentTheme = resolvedTheme || theme || "light";
     setLogoSrc(
-      currentTheme === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
+      getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
     );
-  }, [theme, resolvedTheme]);
+  }, [theme]);
 
   return (
     <img
