@@ -11,8 +11,10 @@ class ProductResource extends JsonResource
         $locale = app()->getLocale();
 
         return [
+ 
             'id' => $this->id, 
             'brand_id' => $this->brand_id,
+ 
  
             'name' => $this->{'name_'.$locale} ?? $this->name_en,
             'description' => $this->{'description_'.$locale} ?? $this->description_en,
