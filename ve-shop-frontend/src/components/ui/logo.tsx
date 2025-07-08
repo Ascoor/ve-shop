@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { useLanguageStore } from "@/store/languageStore";
@@ -31,5 +32,6 @@ export const Logo = ({ className = "" }) => {
       )}
       draggable={false}
     />
+ 
   );
 };

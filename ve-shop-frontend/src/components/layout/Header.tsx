@@ -134,7 +134,7 @@ export const Header = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border justify-start">
+ 
  
       
       <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
