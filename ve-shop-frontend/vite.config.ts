@@ -19,4 +19,8 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+    build: {
+    outDir: "dist",        // اسم المجلد النهائي للإخراج (غيره لأي اسم تحتاجه)
+    emptyOutDir: true,     // ينظف المجلد قبل كل build
+  },
 }));
