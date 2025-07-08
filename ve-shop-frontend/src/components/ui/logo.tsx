@@ -8,15 +8,17 @@ export const Logo = ({ className = "" }) => {
   const { theme, resolvedTheme } = useTheme() || { theme: "light" };
   const { direction } = useLanguageStore();
 
-  // استخدم resolvedTheme لأن بعض نسخ next-themes ترجع "system" في البداية
-  const [logoSrc, setLogoSrc] = useState("/ve-logo-day.png");
+  const [logoSrc, setLogoSrc] = useState(() => {
+    // resolvedTheme is preferred since some next-themes versions
+    // initially return "system" for theme
+    const currentTheme = resolvedTheme || theme || "light";
+    return currentTheme === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png";
+  });
 
   useEffect(() => {
     const currentTheme = resolvedTheme || theme || "light";
     setLogoSrc(
-      currentTheme === "dark"
-        ? "/ve-logo-dark.png"
-        : "/ve-logo-day.png"
+      currentTheme === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
     );
   }, [theme, resolvedTheme]);
 
