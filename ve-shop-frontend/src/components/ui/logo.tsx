@@ -1,23 +1,35 @@
-import { useTheme } from "@/components/ui/theme-provider";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useLanguageStore } from "@/store/languageStore";
+import { cn } from "@/lib/utils";
 
-export const Logo = () => {
-  const { theme } = useTheme();
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+export const Logo = ({ className = "" }) => {
+  const { theme, resolvedTheme } = useTheme() || { theme: "light" };
+  const { direction } = useLanguageStore();
+
+  // استخدم resolvedTheme لأن بعض نسخ next-themes ترجع "system" في البداية
+  const [logoSrc, setLogoSrc] = useState("/ve-logo-day.png");
+
+  useEffect(() => {
+    const currentTheme = resolvedTheme || theme || "light";
+    setLogoSrc(
+      currentTheme === "dark"
+        ? "/ve-logo-dark.png"
+        : "/ve-logo-day.png"
+    );
+  }, [theme, resolvedTheme]);
 
   return (
-    <div className="flex items-center gap-2 select-none">
-      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-        <span className="text-white font-bold text-xl">V</span>
-      </div>
-      {isDark ? (
-        <h1 className="text-2xl font-bold text-white">Ve-Shop</h1>
-      ) : (
-        <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-          Ve-Shop
-        </h1>
+    <img
+      src={logoSrc}
+      alt="Ve-Shop Logo"
+      key={logoSrc} // مهم لضمان إعادة تحميل الصورة عند التغيير
+      className={cn(
+        "w-10 h-10 sm:w-12 sm:h-12 object-contain transition-all duration-300",
+        direction === "rtl" ? "ml-2" : "mr-2",
+        className
       )}
-    </div>
+      draggable={false}
+    />
   );
 };
