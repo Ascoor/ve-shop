@@ -24,10 +24,8 @@ export const Header = () => {
   const { direction } = useLanguageStore();
   const isRTL = direction === "rtl";
 
-  // ترتيب المناطق (zones) حسب اللغة
-  const zones = isRTL
-    ? ['actions', 'search', 'logo']
-    : ['logo', 'search', 'actions'];
+  // نفس ترتيب المناطق (zones) في جميع اللغات
+  const zones = ['logo', 'search', 'actions'];
 
   return (
     <header
