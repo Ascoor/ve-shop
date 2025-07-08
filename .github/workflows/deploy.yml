@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3 # Set up Node.js environment
         with:
-          node-version: '20.19.3' # Update to Node.js version 18.20.4
+          node-version: '20.18.3' # Update to Node.js version 18.20.4
 
       - name: Connect to Remote Server and Run Update Commands
         uses: appleboy/ssh-action@v0.1.10 # Updated SSH action to connect to the remote server
