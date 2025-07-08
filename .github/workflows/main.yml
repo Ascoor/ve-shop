@@ -1,68 +1,68 @@
-name: Deploy Laravel API
+name: Remote Update and Deploy
 
 on:
   push:
     branches:
-      - master  # Deploy only when there is a push to the master branch
+      - main # Triggers the workflow on pushes to the master branch
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  remote-update-and-deploy:
+    runs-on: ubuntu-latest # Specifies the runner environment
 
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3 # Checkout the latest code from the repository
 
-      # Step 2: Set up PHP
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3 # Set up Node.js environment
         with:
-          php-version: '8.3'  # Set the PHP version
-          extensions: mbstring, bcmath, ctype, json, tokenizer, xml, fileinfo, openssl, pdo, mysql
+          node-version: '20.19.2' # Update to Node.js version 18.20.4
 
-      # Step 3: Set up SSH access to the VPS server
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v0.1.8
+      - name: Connect to Remote Server and Run Update Commands
+        uses: appleboy/ssh-action@v0.1.10 # Updated SSH action to connect to the remote server
         with:
-          host: ${{ secrets.VPS_HOST }}  # Host of the VPS server
-          username: ${{ secrets.VPS_USERNAME }}  # SSH username for VPS
-          password: ${{ secrets.VPS_PASSWORD }}  # SSH password for VPS
-          port: ${{ secrets.VPS_PORT }}  # Port for SSH, if different than 22
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
           script: |
-            # Navigate to the project directory on the VPS
-            cd /var/www/html/ve-shop.co/ve-shop
-            
-            # Stash local changes and pull the latest changes from the repo
+            # Navigate to the project directory
+            cd /var/www/html/ve-shop.co/ve-frontend
+
+            # Log the current status
+            echo "Starting remote deployment on ve-frontend..."
+
+            # Stash any local changes and pull the latest changes from the master branch
             git stash --include-untracked
             git pull origin master
-            
-            # Install dependencies using Composer
-            composer install --no-interaction --prefer-dist --optimize-autoloader
-            
-            # Run database migrations
-            php artisan migrate --force
-            
-            php artisan db:wipe
-            
-            php artisan migrate:fresh --seed
-            
-            # Clear and cache the configuration, routes, views, etc.
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            php artisan event:cache
 
-            # Set file permissions
-            sudo chown -R www-data:www-data /var/www/html/ve-store.co/ve-shop/
-            sudo chmod -R 755 /var/www/html/ve-store.co/ve-shop/
-            sudo chmod -R 775 /var/www/html/ve-store.co/ve-shop/storage
-            sudo chmod -R 775 /var/www/html/ve-store.co/ve-shop/bootstrap/cache
+            # Remove package-lock.json and node_modules if they exist
+            [ -f package-lock.json ] && rm package-lock.json
+            [ -d node_modules ] && rm -rf node_modules
 
-            # Restart Nginx and PHP-FPM to apply the changes
-            sudo systemctl restart nginx
-            sudo systemctl restart php8.3-fpm
+            # Install dependencies using npm
+            npm install # This will create a new package-lock.json
 
-      # Step 4: Send confirmation of successful deployment
-      - name: Confirm Deployment
-        run: echo "Laravel API has been successfully deployed to the VPS."
+            # Log the installation status
+            echo "npm dependencies installed."
+
+            # Pre-copy build files from the public directory (cleanup)
+            npm run precopy-build
+
+            # Build the project for production
+            npm run build
+
+            # Ensure the build was successful before proceeding
+            if [ -d ".next" ] && [ "$(ls -A .next)" ]; then
+              echo "Build successful!"
+              npm run deploy  # Copy the build files to the public directory
+            else
+              echo "deploy failed!"
+              exit 1
+            fi
+
+            # Log successful deployment
+            echo "Deployment completed successfully."
+          timeout: 3m # Increase timeout for more flexibility (3 minutes)
+          command_timeout: 15m # Allow 15 minutes for build and copy operations
+          debug: true # Enable debugging for detailed logs
