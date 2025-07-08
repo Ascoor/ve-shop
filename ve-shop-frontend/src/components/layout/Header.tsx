@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { Logo } from "@/components/ui/logo";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/ui/logo"; 
@@ -22,19 +23,20 @@ export const Header = () => {
   const cartCount = useCartStore((state) => state.getItemCount());
   const wishlistCount = useWishlistStore((state) => state.getItemCount());
   const { direction } = useLanguageStore();
+
   const isRTL = direction === "rtl";
 
   // ترتيب المناطق (zones) حسب اللغة
   const zones = isRTL
     ? ['actions', 'search', 'logo']
     : ['logo', 'search', 'actions'];
-
+ 
   return (
     <header
       dir={direction}
       className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border"
     >
-      {/* Top bar */}
+ 
       <div className="bg-gradient-primary text-primary-foreground py-2">
         <div className="container mx-auto px-2 sm:px-4 text-center">
           <p className="text-xs sm:text-sm font-medium flex justify-center items-center gap-2">
@@ -44,7 +46,96 @@ export const Header = () => {
             {t('hero.discount_badge')}
           </p>
         </div>
-      </div>
+      </div> 
+
+      {/* Main header */}
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between gap-4">
+          {/* Logo */}
+          <Logo />
+
+          {/* Search bar */}
+          <div className="hidden flex-1 max-w-2xl md:block">
+            <div className="relative">
+              <Search
+                className={cn(
+                  "absolute top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5",
+                  direction === "rtl" ? "right-3" : "left-3"
+                )}
+              />
+              <Input
+                placeholder={t('actions.search') + "..."}
+                dir={direction}
+                className={cn(
+                  "py-3 w-full bg-muted/50 border-none focus:bg-background focus:ring-2 focus:ring-primary/20",
+                  direction === "rtl" ? "pr-10 pl-4" : "pl-10 pr-4"
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            {/* Mobile menu */}
+            <MobileMenu />
+
+            {/* Wishlist */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              aria-label="Wishlist"
+            >
+              <Heart className="w-5 h-5" />
+              {wishlistCount > 0 && (
+                <Badge
+                  variant="secondary"
+                  className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {wishlistCount}
+                </Badge>
+              )}
+            </Button>
+
+            {/* Notifications */}
+            <NotificationCenter />
+
+            {/* Cart */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={() => navigate('/checkout')}
+              aria-label="Cart"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <Badge
+                  variant="secondary"
+                  className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {cartCount}
+                </Badge>
+              )}
+            </Button>
+
+            {/* Mobile search */}
+            <MobileSearch />
+
+            {/* Account */}
+            <AccountDropdown />
+
+            {/* Theme toggle */}
+            <ThemeToggle />
+
+            {/* Language switcher */}
+            <LanguageSwitcher />
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border justify-start">
+ 
       
       <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
         {/* ثلاث مناطق مرنة */}
@@ -139,6 +230,7 @@ export const Header = () => {
           "hidden md:flex items-center gap-4 sm:gap-6 mt-4 pt-4 border-t border-border text-base",
           isRTL ? "justify-end" : "justify-start"
         )}>
+ 
           <Button variant="ghost" className="font-medium">{t('categories.electronics')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.fashion')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.home')}</Button>
