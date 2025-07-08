@@ -12,15 +12,21 @@ import { NotificationCenter } from "@/components/notifications/NotificationCente
 import { AccountDropdown } from "./AccountDropdown";
 import { MobileMenu } from "./MobileMenu";
 import { MobileSearch } from "./MobileSearch";
+import { useLanguageStore } from "@/store/languageStore";
+import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const cartCount = useCartStore((state) => state.getItemCount());
   const wishlistCount = useWishlistStore((state) => state.getItemCount());
+  const { direction } = useLanguageStore();
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header
+      dir={direction}
+      className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border"
+    >
       {/* Top bar with promotions */}
       <div className="bg-gradient-primary text-primary-foreground py-2">
         <div className="container mx-auto px-4 text-center">
@@ -44,12 +50,21 @@ export const Header = () => {
           </div>
 
           {/* Search bar */}
-          <div className="flex-1 max-w-2xl">
+          <div className="hidden flex-1 max-w-2xl md:block">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+              <Search
+                className={cn(
+                  "absolute top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5",
+                  direction === "rtl" ? "right-3" : "left-3"
+                )}
+              />
               <Input
                 placeholder={t('actions.search') + "..."}
-                className="pl-10 pr-4 py-3 w-full bg-muted/50 border-none focus:bg-background focus:ring-2 focus:ring-primary/20"
+                dir={direction}
+                className={cn(
+                  "py-3 w-full bg-muted/50 border-none focus:bg-background focus:ring-2 focus:ring-primary/20",
+                  direction === "rtl" ? "pr-10 pl-4" : "pl-10 pr-4"
+                )}
               />
             </div>
           </div>
@@ -96,24 +111,24 @@ export const Header = () => {
               )}
             </Button>
 
-            {/* Language switcher */}
-            <LanguageSwitcher />
-
-            {/* Theme toggle */}
-            <ThemeToggle />
+            {/* Mobile menu */}
+            <MobileMenu />
+            {/* Mobile search */}
+            <MobileSearch />
 
             {/* Account */}
             <AccountDropdown />
 
-            {/* Mobile search */}
-            <MobileSearch />
-            {/* Mobile menu */}
-            <MobileMenu />
+            {/* Theme toggle */}
+            <ThemeToggle />
+
+            {/* Language switcher */}
+            <LanguageSwitcher />
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border">
+        <nav className="hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border justify-start">
           <Button variant="ghost" className="font-medium">{t('categories.electronics')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.fashion')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.home')}</Button>
