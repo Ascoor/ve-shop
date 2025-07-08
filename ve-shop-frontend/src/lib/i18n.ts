@@ -1,45 +1,62 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-/**
- * Dynamically load translation files using Vite's `import.meta.glob`.
- * Files live under ../i18n/{lang}/{namespace}.json
- */
-const translationFiles = import.meta.glob('../i18n/*/*.json');
+// Translation files
+import enCommon from '../locales/en/common.json';
+import enProduct from '../locales/en/product.json';
+import enCart from '../locales/en/cart.json';
+import enAuth from '../locales/en/auth.json';
+import enUi from '../locales/en/ui.json';
 
-export const namespaces = ['common', 'product', 'cart', 'auth', 'ui'] as const;
-export type AvailableLanguage = 'en' | 'ar';
+import arCommon from '../locales/ar/common.json';
+import arProduct from '../locales/ar/product.json';
+import arCart from '../locales/ar/cart.json';
+import arAuth from '../locales/ar/auth.json';
+import arUi from '../locales/ar/ui.json';
 
-/** Load all namespaces for the given language. */
-export const loadLocale = async (lng: AvailableLanguage) => {
-  const loaders = namespaces.map(async (ns) => {
-    const mod = await translationFiles[`../i18n/${lng}/${ns}.json`]?.();
-    if (mod?.default) {
-      i18n.addResourceBundle(lng, ns, mod.default, true, true);
-    }
-  });
-  await Promise.all(loaders);
+const resources = {
+  en: {
+    common: enCommon,
+    product: enProduct,
+    cart: enCart,
+    auth: enAuth,
+    ui: enUi,
+  },
+  ar: {
+    common: arCommon,
+    product: arProduct,
+    cart: arCart,
+    auth: arAuth,
+    ui: arUi,
+  },
 };
 
-const initialLanguage: AvailableLanguage =
-  (typeof navigator !== 'undefined' && navigator.language.startsWith('ar'))
-    ? 'ar'
-    : 'en';
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: 'en', // default language
+    fallbackLng: 'en',
+    
+    interpolation: {
+      escapeValue: false, // not needed for react as it escapes by default
+    },
+    
+    // Load multiple namespaces
+    defaultNS: 'common',
+    ns: ['common', 'product', 'cart', 'auth', 'ui'],
+    
+    // React-specific options
+    react: {
+      useSuspense: false,
+    },
+    
+    // Debug in development
+    debug: process.env.NODE_ENV === 'development',
+  });
 
-await loadLocale(initialLanguage);
-
-i18n.use(initReactI18next).init({
-  lng: initialLanguage,
-  fallbackLng: 'en',
-  defaultNS: 'common',
-  ns: namespaces,
-  interpolation: { escapeValue: false },
-  react: { useSuspense: true },
-  debug: process.env.NODE_ENV === 'development',
-});
-
-i18n.on('languageChanged', async (lng) => {
-  await loadLocale(lng as AvailableLanguage);
+// Handle direction change
+i18n.on('languageChanged', (lng) => {
   const dir = lng === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.dir = dir;
   document.documentElement.lang = lng;
