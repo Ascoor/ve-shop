@@ -27,7 +27,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             # Navigate to the project directory
-            cd /var/www/html/ve-shop.co/ve-frontend
+            cd /home/ve-shop.co/ve-shop/ve-shop-frontend
 
             # Log the current status
             echo "Starting remote deployment on ve-frontend..."
