@@ -21,9 +21,9 @@ jobs:
       - name: Connect to Remote Server and Run Update Commands
         uses: appleboy/ssh-action@v0.1.10 # Updated SSH action to connect to the remote server
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USERNAME }}
-          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
             # Navigate to the project directory
@@ -46,8 +46,7 @@ jobs:
             # Log the installation status
             echo "npm dependencies installed."
 
-            # Pre-copy build files from the public directory (cleanup)
-            npm run precopy-build
+          
 
             # Build the project for production
             npm run build
