@@ -13,6 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (config('app.demo')) {
+            $this->call(DemoSeeder::class);
+            return;
+        }
+
         // User::factory(10)->create();
 
         User::factory()->create([

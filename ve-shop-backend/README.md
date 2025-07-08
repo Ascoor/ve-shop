@@ -59,3 +59,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Demo Mode
+
+Set `DEMO_MODE=true` in your `.env` to enable demo features. Run the following command to reset demo data:
+
+```bash
+php artisan demo:reset
+```
+
+When demo mode is active you can quickly login as a demo user by posting to `/demo-login/{role}` where `{role}` is `admin`, `vendor`, or `customer`.
