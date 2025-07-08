@@ -96,7 +96,8 @@ export const Header = () => {
   key="actions"
   className={cn(
     "flex items-center gap-1 sm:gap-2 min-w-[100px]",
-    isRTL ? "order-1 justify-start" : "order-3 justify-end"
+    "order-3",
+    isRTL ? "justify-start" : "justify-end"
   )}
 >
   {/* MobileMenu: المكان حسب الاتجاه */}
