@@ -52,7 +52,7 @@ jobs:
             npm run build
 
             # Ensure the build was successful before proceeding
-            if [ -d ".next" ] && [ "$(ls -A .next)" ]; then
+            if [ -d ".dist" ] && [ "$(ls -A .dist)" ]; then
               echo "Build successful!"
               npm run deploy  # Copy the build files to the public directory
             else
