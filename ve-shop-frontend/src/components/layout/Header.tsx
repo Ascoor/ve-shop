@@ -116,23 +116,24 @@ export const Header = () => {
               )}
             </Button>
 
-            {/* Language switcher */}
-            <LanguageSwitcher />
-
-            {/* Theme toggle */}
-            <ThemeToggle />
+            {/* Mobile menu */}
+            <MobileMenu />
+            {/* Mobile search */}
+            <MobileSearch />
 
             {/* Account */}
             <AccountDropdown />
 
-            {/* Mobile search */}
-            <MobileSearch />
-            {/* Mobile menu */}
-            <MobileMenu />
+            {/* Theme toggle */}
+            <ThemeToggle />
+
+            {/* Language switcher */}
+            <LanguageSwitcher />
           </div>
         </div>
 
         {/* Navigation */}
+
         <nav
           className={cn(
             "hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border",
