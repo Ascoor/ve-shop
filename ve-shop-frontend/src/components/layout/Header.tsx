@@ -38,7 +38,12 @@ export const Header = () => {
 
       {/* Main header */}
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between gap-4">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-4",
+            direction === "rtl" && "flex-row-reverse"
+          )}
+        >
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
@@ -128,7 +133,13 @@ export const Header = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border justify-start">
+
+        <nav
+          className={cn(
+            "hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border",
+            direction === "rtl" ? "justify-end" : "justify-start"
+          )}
+        >
           <Button variant="ghost" className="font-medium">{t('categories.electronics')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.fashion')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.home')}</Button>
