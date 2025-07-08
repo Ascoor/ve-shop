@@ -11,7 +11,9 @@ class ProductSeeder extends Seeder
     {
         Product::truncate();
 
-        Product::create([
+        Product::create([ 
+            'brand_id' => 1,
+ 
             'name_en' => 'Sample Product',
             'name_ar' => 'منتج تجريبي',
             'description_en' => 'Demo product description',
