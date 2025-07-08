@@ -3,67 +3,35 @@ name: Remote Update and Deploy
 on:
   push:
     branches:
-      - main # Triggers the workflow on pushes to the master branch
+      - main
 
 jobs:
   remote-update-and-deploy:
-    runs-on: ubuntu-latest # Specifies the runner environment
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3 # Checkout the latest code from the repository
+        uses: actions/checkout@v3
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v3 # Set up Node.js environment
+        uses: actions/setup-node@v3
         with:
-          node-version: '20.18.3' # Update to Node.js version 18.20.4
+          node-version: '20.18.3' # أو أي نسخة تحتاجها
 
-      - name: Connect to Remote Server and Run Update Commands
-        uses: appleboy/ssh-action@v0.1.10 # Updated SSH action to connect to the remote server
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.VPS_HOST }}
-        
+          username: root
           key: ${{ secrets.VPS_PRIVATE_KEY }}
-    
-          username: ${{ secrets.VPS_USERNAME }}
-          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
           script: |
-            # Navigate to the project directory
             cd /home/ve-shop.co/ve-shop/ve-shop-frontend
-
-            # Log the current status
-            echo "Starting remote deployment on ve-frontend..."
-
-            # Stash any local changes and pull the latest changes from the master branch
-            git stash --include-untracked
             git pull origin master
-
-            # Remove package-lock.json and node_modules if they exist
-            [ -f package-lock.json ] && rm package-lock.json
-            [ -d node_modules ] && rm -rf node_modules
-
-            # Install dependencies using npm
-            npm install # This will create a new package-lock.json
-
-            # Log the installation status
-            echo "npm dependencies installed."
-
-          
-
-            # Build the project for production
+            npm install
             npm run build
-
-            # Ensure the build was successful before proceeding
-            if [ -d ".dist" ] && [ "$(ls -A .dist)" ]; then
-              echo "Build successful!"
-              npm run deploy  # Copy the build files to the public directory
-            else
-              echo "deploy failed!"
-              exit 1
-            fi
-
-            # Log successful deployment
+            npm run deploy
             echo "Deployment completed successfully."
-          timeout: 3m # Increase timeout for more flexibility (3 minutes)
-          command_timeout: 15m # Allow 15 minutes for build and copy operations
-          debug: true # Enable debugging for detailed logs
+          timeout: 3m
+          command_timeout: 15m
+          debug: true
