@@ -69,14 +69,10 @@ php artisan demo:reset
 ```
 
 When demo mode is active you can quickly login as a demo user by posting to `/demo-login/{role}` where `{role}` is `admin`, `vendor`, or `customer`.
+ 
 
 ## API Setup
 1. Copy `.env.example` to `.env` and configure your database.
 2. Run `php artisan migrate --seed` to create tables and demo data.
 3. Start the server with `php artisan serve`.
-
-### Sample requests
-```bash
-curl http://localhost:8000/api/products
-curl http://localhost:8000/api/categories
-```
+ 
