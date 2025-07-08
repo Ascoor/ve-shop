@@ -15,12 +15,11 @@ const languages = [
 ];
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  useTranslation(); // ensure rerender on language change
   const { language, setLanguage } = useLanguageStore();
 
   const handleLanguageChange = (langCode: 'en' | 'ar') => {
     setLanguage(langCode);
-    i18n.changeLanguage(langCode);
   };
 
   const currentLanguage = languages.find(lang => lang.code === language);

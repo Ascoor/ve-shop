@@ -75,7 +75,7 @@ ve-shop/
 │   ├── styles/              # Global styles and themes
 │   ├── assets/              # Static assets (images, icons)
 │   ├── pages/               # Page components
-│   └── locales/             # i18n translation files
+│   └── i18n/                # translation files (lang/namespace.json)
 ├── public/                  # Static public assets
 ├── docs/                    # Documentation
 └── tests/                   # Test files
@@ -198,10 +198,17 @@ const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
 document.documentElement.dir = direction;
 ```
 
+### Developer Notes
+All translation JSON files live under `src/i18n/{lang}/{namespace}.json` and are
+loaded on demand. The current language and direction are stored globally using a
+Zustand store exposed via `useLanguageStore()`. Updating the language through
+this hook automatically loads the locale, switches i18next, and updates the page
+direction.
+
 ### Adding New Languages
-1. Create translation file in `src/locales/[lang].json`
-2. Add language configuration in `src/lib/i18n.ts`
-3. Update language selector component
+1. Create namespace files under `src/i18n/{lang}/{namespace}.json`
+2. The language will be lazy-loaded automatically; just ensure the files exist.
+3. Update `LanguageSwitcher` if you add a new language option.
 
 ## 🔐 Authentication System
 
