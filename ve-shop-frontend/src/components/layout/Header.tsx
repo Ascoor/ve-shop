@@ -76,6 +76,9 @@ export const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            {/* Mobile menu */}
+            <MobileMenu />
+
             {/* Wishlist */}
             <Button
               variant="ghost"
@@ -115,9 +118,9 @@ export const Header = () => {
                 </Badge>
               )}
             </Button>
-
+ 
             {/* Mobile menu */}
-            <MobileMenu />
+            <MobileMenu /> 
             {/* Mobile search */}
             <MobileSearch />
 
@@ -132,14 +135,14 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation */} 
 
         <nav
           className={cn(
             "hidden md:flex items-center gap-6 mt-4 pt-4 border-t border-border",
             direction === "rtl" ? "justify-end" : "justify-start"
           )}
-        >
+        > 
           <Button variant="ghost" className="font-medium">{t('categories.electronics')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.fashion')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.home')}</Button>
