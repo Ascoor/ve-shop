@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/languageStore";
 
 interface CheckoutStepsProps {
   currentStep: number;
@@ -7,6 +8,8 @@ interface CheckoutStepsProps {
 
 export const CheckoutSteps = ({ currentStep }: CheckoutStepsProps) => {
   const { t } = useTranslation('cart');
+  const { direction } = useLanguageStore();
+  const isRTL = direction === 'rtl';
   
   const steps = [
     { key: 1, label: t('checkout.cart_review', 'Cart Review') },
@@ -16,7 +19,10 @@ export const CheckoutSteps = ({ currentStep }: CheckoutStepsProps) => {
   ];
 
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div
+      dir={direction}
+      className={`flex items-center justify-between mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}
+    >
       {steps.map((step, index) => (
         <div key={step.key} className="flex items-center flex-1">
           {/* Step Circle */}
