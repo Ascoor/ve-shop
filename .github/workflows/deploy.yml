@@ -16,15 +16,15 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3
         with:
-          node-version: '20.18.3'
+          node-version: "20.18.3"
 
       - name: Install dependencies (Frontend)
         working-directory: ./ve-shop-frontend
         run: npm install
 
-      - name: Build Frontend
+      - name: Build Frontend (GitHub Pages)
         working-directory: ./ve-shop-frontend
-        run: npm run build
+        run: npm run build:gh
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -38,7 +38,6 @@ jobs:
             git pull origin main
             cd ve-shop-frontend
             npm install
-            npm run build
             npm run deploy
             echo "Deployment completed successfully."
           timeout: 3m
@@ -49,4 +48,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./ve-shop-frontend/dist  # أو غيّر حسب اسم مجلد build عندك
+          publish_dir: ./ve-shop-frontend/dist # أو غيّر حسب اسم مجلد build عندك
