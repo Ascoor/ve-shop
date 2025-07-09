@@ -2,18 +2,27 @@ import { useState } from "react";
 import { Plus, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { AddressForm } from "@/components/forms/AddressForm";
 import { useOrderStore, type Address } from "@/stores/orderStore";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { useLanguageStore } from "@/store/languageStore";
 
 export const ShippingAddress = () => {
-  const { t } = useTranslation('cart');
+  const { t } = useTranslation("cart");
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [showAddressForm, setShowAddressForm] = useState(false);
-  
+  const { direction } = useLanguageStore();
+  const isRTL = direction === "rtl";
+
   const {
     addresses,
     addAddress,
@@ -21,7 +30,7 @@ export const ShippingAddress = () => {
     removeAddress,
     setShippingAddress,
     setCheckoutStep,
-    checkoutData
+    checkoutData,
   } = useOrderStore();
 
   const handleSelectAddress = (address: Address) => {
@@ -29,17 +38,21 @@ export const ShippingAddress = () => {
     setShippingAddress(address);
   };
 
-  const handleAddAddress = (addressData: Omit<Address, 'id'>) => {
+  const handleAddAddress = (addressData: Omit<Address, "id">) => {
     addAddress(addressData);
     setShowAddressForm(false);
-    toast.success(t('address.added_successfully', 'Address added successfully'));
+    toast.success(
+      t("address.added_successfully", "Address added successfully"),
+    );
   };
 
-  const handleUpdateAddress = (addressData: Omit<Address, 'id'>) => {
+  const handleUpdateAddress = (addressData: Omit<Address, "id">) => {
     if (editingAddress) {
       updateAddress(editingAddress.id, addressData);
       setEditingAddress(null);
-      toast.success(t('address.updated_successfully', 'Address updated successfully'));
+      toast.success(
+        t("address.updated_successfully", "Address updated successfully"),
+      );
     }
   };
 
@@ -48,12 +61,19 @@ export const ShippingAddress = () => {
     if (selectedAddress?.id === address.id) {
       setSelectedAddress(null);
     }
-    toast.success(t('address.removed_successfully', 'Address removed successfully'));
+    toast.success(
+      t("address.removed_successfully", "Address removed successfully"),
+    );
   };
 
   const handleProceedToPayment = () => {
     if (!selectedAddress) {
-      toast.error(t('checkout.select_shipping_address', 'Please select a shipping address'));
+      toast.error(
+        t(
+          "checkout.select_shipping_address",
+          "Please select a shipping address",
+        ),
+      );
       return;
     }
     setCheckoutStep(3);
@@ -64,20 +84,22 @@ export const ShippingAddress = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div dir={direction} className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{t('checkout.shipping_address')}</h2>
-        
+        <h2 className="text-xl font-semibold">
+          {t("checkout.shipping_address")}
+        </h2>
+
         <Dialog open={showAddressForm} onOpenChange={setShowAddressForm}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
-              {t('address.add_new', 'Add New Address')}
+              {t("address.add_new", "Add New Address")}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('address.add_new')}</DialogTitle>
+              <DialogTitle>{t("address.add_new")}</DialogTitle>
             </DialogHeader>
             <AddressForm
               onSubmit={handleAddAddress}
@@ -91,23 +113,23 @@ export const ShippingAddress = () => {
         <Card>
           <CardContent className="p-8 text-center">
             <p className="text-muted-foreground mb-4">
-              {t('address.no_saved_addresses', 'No saved addresses found')}
+              {t("address.no_saved_addresses", "No saved addresses found")}
             </p>
             <Button onClick={() => setShowAddressForm(true)}>
               <Plus className="w-4 h-4 mr-2" />
-              {t('address.add_first', 'Add Your First Address')}
+              {t("address.add_first", "Add Your First Address")}
             </Button>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {addresses.map((address) => (
-            <Card 
+            <Card
               key={address.id}
               className={`cursor-pointer transition-colors ${
-                selectedAddress?.id === address.id 
-                  ? 'ring-2 ring-primary bg-primary/5' 
-                  : 'hover:bg-muted/50'
+                selectedAddress?.id === address.id
+                  ? "ring-2 ring-primary bg-primary/5"
+                  : "hover:bg-muted/50"
               }`}
               onClick={() => handleSelectAddress(address)}
             >
@@ -115,9 +137,12 @@ export const ShippingAddress = () => {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{address.name}</CardTitle>
                   <div className="flex gap-1">
-                    <Dialog open={editingAddress?.id === address.id} onOpenChange={(open) => {
-                      if (!open) setEditingAddress(null);
-                    }}>
+                    <Dialog
+                      open={editingAddress?.id === address.id}
+                      onOpenChange={(open) => {
+                        if (!open) setEditingAddress(null);
+                      }}
+                    >
                       <DialogTrigger asChild>
                         <Button
                           variant="ghost"
@@ -132,7 +157,9 @@ export const ShippingAddress = () => {
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
-                          <DialogTitle>{t('address.edit', 'Edit Address')}</DialogTitle>
+                          <DialogTitle>
+                            {t("address.edit", "Edit Address")}
+                          </DialogTitle>
                         </DialogHeader>
                         <AddressForm
                           initialData={address}
@@ -141,7 +168,7 @@ export const ShippingAddress = () => {
                         />
                       </DialogContent>
                     </Dialog>
-                    
+
                     <Button
                       variant="ghost"
                       size="icon"
@@ -156,19 +183,25 @@ export const ShippingAddress = () => {
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <div className="text-sm text-muted-foreground space-y-1">
                   <p>{address.street}</p>
-                  <p>{address.city}, {address.state} {address.zipCode}</p>
+                  <p>
+                    {address.city}, {address.state} {address.zipCode}
+                  </p>
                   <p>{address.country}</p>
-                  {address.phone && <p>{t('address.phone', 'Phone')}: {address.phone}</p>}
+                  {address.phone && (
+                    <p>
+                      {t("address.phone", "Phone")}: {address.phone}
+                    </p>
+                  )}
                 </div>
-                
+
                 {address.isDefault && (
                   <div className="mt-2">
                     <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary">
-                      {t('address.default', 'Default')}
+                      {t("address.default", "Default")}
                     </span>
                   </div>
                 )}
@@ -180,18 +213,32 @@ export const ShippingAddress = () => {
 
       <div className="flex justify-between pt-6">
         <Button variant="outline" onClick={handleBack}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          {t('checkout.back_to_cart', 'Back to Cart')}
+          {isRTL ? (
+            <>
+              {t("checkout.back_to_cart", "Back to Cart")}
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </>
+          ) : (
+            <>
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              {t("checkout.back_to_cart", "Back to Cart")}
+            </>
+          )}
         </Button>
-        
-        <Button 
-          onClick={handleProceedToPayment}
-          disabled={!selectedAddress}
-        >
-          {t('checkout.continue_to_payment', 'Continue to Payment')}
-          <ChevronRight className="w-4 h-4 ml-2" />
+
+        <Button onClick={handleProceedToPayment} disabled={!selectedAddress}>
+          {isRTL ? (
+            <>
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              {t("checkout.continue_to_payment", "Continue to Payment")}
+            </>
+          ) : (
+            <>
+              {t("checkout.continue_to_payment", "Continue to Payment")}
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </>
+          )}
         </Button>
       </div>
     </div>
-  );
-};
+  );};
