@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: Codium-ai/pr-agent@v0.30
+      - uses: codium-ai/pr-agent@v1.2.1
+
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
