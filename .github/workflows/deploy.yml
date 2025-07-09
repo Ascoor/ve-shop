@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3
         with:
-          node-version: '20.18.3'
+          node-version: "20.18.3"
 
       - name: Install dependencies (Frontend)
         working-directory: ./ve-shop-frontend
@@ -25,6 +25,8 @@ jobs:
       - name: Build Frontend
         working-directory: ./ve-shop-frontend
         run: npm run build
+        env:
+          GITHUB_PAGES: "true"
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -49,4 +51,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./ve-shop-frontend/dist  # أو غيّر حسب اسم مجلد build عندك
+          publish_dir: ./ve-shop-frontend/dist # أو غيّر حسب اسم مجلد build عندك

@@ -365,6 +365,7 @@ npm run preview
 VITE_API_BASE_URL=https://api.ve-shop.com
 VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
 VITE_ENVIRONMENT=production
+GITHUB_PAGES=true
 ```
 
 ## 🗺️ Development Roadmap
@@ -644,5 +645,4 @@ npm run dev
 # Build for production
 npm run build
 ```
-
 **Happy coding! 🛍️✨**
