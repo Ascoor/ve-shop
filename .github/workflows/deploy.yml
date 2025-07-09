@@ -24,6 +24,7 @@ jobs:
 
       - name: Build Frontend (GitHub Pages)
         working-directory: ./ve-shop-frontend
+        # نفذ البناء مع base خاص بجيت هب بيچز
         run: npm run build:gh
 
       - name: Deploy to VPS via SSH
@@ -38,6 +39,7 @@ jobs:
             git pull origin main
             cd ve-shop-frontend
             npm install
+            npm run build:prod
             npm run deploy
             echo "Deployment completed successfully."
           timeout: 3m
@@ -48,4 +50,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./ve-shop-frontend/dist # أو غيّر حسب اسم مجلد build عندك
+          publish_dir: ./ve-shop-frontend/dist   # لو البناء يخرج في dist (أو غيّر حسب build dir)

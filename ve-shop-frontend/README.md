@@ -392,6 +392,7 @@ npm run preview
 VITE_API_BASE_URL=https://api.ve-shop.com
 VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
 VITE_ENVIRONMENT=production
+GITHUB_PAGES=true
 ```
 
 ## 🗺️ Development Roadmap
@@ -561,6 +562,12 @@ const categories = [
 // 3. Add category-specific filters
 ```
 
+### Managing Demo Products
+
+Demo categories and products are stored in the Zustand store located at `src/store/catalogStore.ts`.
+You can easily modify the initial arrays or use the provided `addCategory` and `addProduct` methods to
+extend the catalog. This setup keeps the data in-memory and makes it simple to replace with a real API later.
+
 ### Customizing Theme
 
 ```css
@@ -688,6 +695,7 @@ cp .env.example .env
 
 # Start development
 npm run dev
+
 
 # Build for VPS
 npm run build:prod
