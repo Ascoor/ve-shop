@@ -93,7 +93,7 @@ export const ShippingAddress = () => {
         <Dialog open={showAddressForm} onOpenChange={setShowAddressForm}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="w-4 h-4 me-2" />
               {t("address.add_new", "Add New Address")}
             </Button>
           </DialogTrigger>
@@ -116,7 +116,7 @@ export const ShippingAddress = () => {
               {t("address.no_saved_addresses", "No saved addresses found")}
             </p>
             <Button onClick={() => setShowAddressForm(true)}>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="w-4 h-4 me-2" />
               {t("address.add_first", "Add Your First Address")}
             </Button>
           </CardContent>
@@ -216,11 +216,11 @@ export const ShippingAddress = () => {
           {isRTL ? (
             <>
               {t("checkout.back_to_cart", "Back to Cart")}
-              <ChevronRight className="w-4 h-4 ml-2" />
+              <ChevronRight className="w-4 h-4 ms-2" />
             </>
           ) : (
             <>
-              <ChevronLeft className="w-4 h-4 mr-2" />
+              <ChevronLeft className="w-4 h-4 me-2" />
               {t("checkout.back_to_cart", "Back to Cart")}
             </>
           )}
@@ -229,16 +229,17 @@ export const ShippingAddress = () => {
         <Button onClick={handleProceedToPayment} disabled={!selectedAddress}>
           {isRTL ? (
             <>
-              <ChevronLeft className="w-4 h-4 mr-2" />
+              <ChevronLeft className="w-4 h-4 me-2" />
               {t("checkout.continue_to_payment", "Continue to Payment")}
             </>
           ) : (
             <>
               {t("checkout.continue_to_payment", "Continue to Payment")}
-              <ChevronRight className="w-4 h-4 ml-2" />
+              <ChevronRight className="w-4 h-4 ms-2" />
             </>
           )}
         </Button>
       </div>
     </div>
-  );};
+  );
+};

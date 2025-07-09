@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { VisuallyHidden } from "@/components/ui/visually-hidden";
 
 interface ProductGalleryProps {
   images: string[];
   productName: string;
 }
 
-export const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
+export const ProductGallery = ({
+  images,
+  productName,
+}: ProductGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
 
@@ -31,7 +40,7 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
             className="w-full h-full object-cover"
           />
         </div>
-        
+
         {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
@@ -43,7 +52,7 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            
+
             <Button
               variant="secondary"
               size="icon"
@@ -54,7 +63,7 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
             </Button>
           </>
         )}
-        
+
         {/* Zoom Button */}
         <Button
           variant="secondary"
@@ -64,7 +73,7 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
         >
           <Expand className="w-4 h-4" />
         </Button>
-        
+
         {/* Image Counter */}
         {images.length > 1 && (
           <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
@@ -81,8 +90,8 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
               key={index}
               className={`aspect-square bg-muted rounded-md overflow-hidden border-2 transition-colors ${
                 selectedImage === index
-                  ? 'border-primary'
-                  : 'border-transparent hover:border-muted-foreground'
+                  ? "border-primary"
+                  : "border-transparent hover:border-muted-foreground"
               }`}
               onClick={() => setSelectedImage(index)}
             >
@@ -99,6 +108,11 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
       {/* Fullscreen Modal */}
       <Dialog open={isZoomed} onOpenChange={setIsZoomed}>
         <DialogContent className="max-w-6xl w-full h-full max-h-screen p-0 bg-black/90">
+          <DialogHeader>
+            <DialogTitle>
+              <VisuallyHidden>Image Preview</VisuallyHidden>
+            </DialogTitle>
+          </DialogHeader>
           <div className="relative h-full flex items-center justify-center">
             <Button
               variant="ghost"
@@ -108,13 +122,13 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
             >
               <X className="w-6 h-6" />
             </Button>
-            
+
             <img
               src={images[selectedImage]}
               alt={`${productName} - Full size`}
               className="max-w-full max-h-full object-contain"
             />
-            
+
             {images.length > 1 && (
               <>
                 <Button
@@ -125,7 +139,7 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </Button>
-                
+
                 <Button
                   variant="ghost"
                   size="icon"
@@ -140,5 +154,4 @@ export const ProductGallery = ({ images, productName }: ProductGalleryProps) => 
         </DialogContent>
       </Dialog>
     </div>
-  );
-};
+  );};

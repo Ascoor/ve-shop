@@ -306,11 +306,11 @@ export const PaymentMethod = () => {
           {isRTL ? (
             <>
               {t("checkout.back_to_shipping", "Back to Shipping")}
-              <ChevronRight className="w-4 h-4 ml-2" />
+              <ChevronRight className="w-4 h-4 ms-2" />
             </>
           ) : (
             <>
-              <ChevronLeft className="w-4 h-4 mr-2" />
+              <ChevronLeft className="w-4 h-4 me-2" />
               {t("checkout.back_to_shipping", "Back to Shipping")}
             </>
           )}
@@ -323,15 +323,16 @@ export const PaymentMethod = () => {
           {isRTL ? (
             <>
               {t("checkout.place_order")} - ${total.toFixed(2)}
-              <Lock className="w-4 h-4 ml-2" />
+              <Lock className="w-4 h-4 ms-2" />
             </>
           ) : (
             <>
-              <Lock className="w-4 h-4 mr-2" />
+              <Lock className="w-4 h-4 me-2" />
               {t("checkout.place_order")} - ${total.toFixed(2)}
             </>
           )}
         </Button>
       </div>
     </div>
-  );};
+  );
+};
