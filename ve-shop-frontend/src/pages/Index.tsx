@@ -3,7 +3,6 @@ import { Header } from "@/components/layout/Header";
 import { HeroSection } from "@/components/layout/HeroSection";
 import { CategoryNav } from "@/components/layout/CategoryNav";
 import { FeaturedSection } from "@/components/products/FeaturedSection";
-import { DealsCarousel } from "@/components/products/DealsCarousel";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { CategorySidebar } from "@/components/products/CategorySidebar";
 import { ProductFilters } from "@/components/products/ProductFilters";
@@ -19,8 +18,7 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <CategoryNav selected={selectedCategory} onSelect={setSelectedCategory} />
-        <DealsCarousel />
+        <CategoryNav />
         <FeaturedSection />
         
         <section className="py-16 bg-muted/30">
@@ -46,7 +44,7 @@ const Index = () => {
               
               {/* Main content */}
               <div className="flex-1">
-                <ProductGrid categoryId={selectedCategory} />
+                <ProductGrid />
               </div>
             </div>
           </div>

@@ -10,14 +10,12 @@ import { CheckoutSteps } from "@/components/checkout/CheckoutSteps";
 import { useOrderStore } from "@/stores/orderStore";
 import { useCartStore } from "@/store/cartStore";
 import { useTranslation } from "react-i18next";
-import { useLanguageStore } from "@/store/languageStore";
 
 const Checkout = () => {
   const { t } = useTranslation('cart');
   const navigate = useNavigate();
   const { currentCheckoutStep, setCheckoutStep, clearCheckout } = useOrderStore();
   const { items, getItemCount } = useCartStore();
-  const { direction } = useLanguageStore();
 
   // Redirect if cart is empty (except on confirmation step)
   useEffect(() => {
@@ -51,7 +49,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background" dir={direction}>
+    <div className="min-h-screen bg-background">
       <Header />
       
       <main className="py-8">
@@ -73,4 +71,5 @@ const Checkout = () => {
     </div>
   );
 };
+
 export default Checkout;

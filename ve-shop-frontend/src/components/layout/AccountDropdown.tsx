@@ -11,13 +11,11 @@ import { LogOut, Package, Settings, User, UserCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLanguageStore } from "@/store/languageStore";
 
 export const AccountDropdown = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation("common");
-  const { direction } = useLanguageStore();
 
   if (!isAuthenticated || !user) {
     return (
@@ -28,9 +26,7 @@ export const AccountDropdown = () => {
         aria-label={t("actions.sign_in", "Sign In")}
       >
         <User className="w-5 h-5" />
-        <span className="hidden sm:inline">
-          {t("actions.sign_in", "Sign In")}
-        </span>
+        <span className="hidden sm:inline">{t("actions.sign_in", "Sign In")}</span>
       </Button>
     );
   }
@@ -45,10 +41,7 @@ export const AccountDropdown = () => {
           aria-label={t("navigation.account", "Account")}
         >
           <Avatar className="h-9 w-9">
-            <AvatarImage
-              src={user.avatar}
-              alt={`${user.firstName} ${user.lastName}`}
-            />
+            <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
             <AvatarFallback>
               {user.firstName[0]}
               {user.lastName[0]}
@@ -56,12 +49,7 @@ export const AccountDropdown = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        dir={direction}
-        className="w-56"
-        align={direction === "rtl" ? "start" : "end"}
-        forceMount
-      >
+      <DropdownMenuContent className="w-56" align="end" forceMount>
         <div className="flex items-center gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             <p className="font-medium">
@@ -73,25 +61,19 @@ export const AccountDropdown = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => navigate("/profile")}
-          className="cursor-pointer"
-        >
-          <UserCircle className="me-2 h-4 w-4" />
+        <DropdownMenuItem onClick={() => navigate("/profile")}
+          className="cursor-pointer">
+          <UserCircle className="mr-2 h-4 w-4" />
           <span>{t("navigation.profile", "Profile")}</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => navigate("/profile?tab=orders")}
-          className="cursor-pointer"
-        >
-          <Package className="me-2 h-4 w-4" />
+        <DropdownMenuItem onClick={() => navigate("/profile?tab=orders")}
+          className="cursor-pointer">
+          <Package className="mr-2 h-4 w-4" />
           <span>{t("navigation.orders", "Orders")}</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => navigate("/profile?tab=settings")}
-          className="cursor-pointer"
-        >
-          <Settings className="me-2 h-4 w-4" />
+        <DropdownMenuItem onClick={() => navigate("/profile?tab=settings")}
+          className="cursor-pointer">
+          <Settings className="mr-2 h-4 w-4" />
           <span>{t("navigation.settings", "Settings")}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -102,7 +84,7 @@ export const AccountDropdown = () => {
           }}
           className="cursor-pointer text-destructive"
         >
-          <LogOut className="me-2 h-4 w-4" />
+          <LogOut className="mr-2 h-4 w-4" />
           <span>{t("actions.logout", "Logout")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

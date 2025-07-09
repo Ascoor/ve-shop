@@ -1,19 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useLanguageStore } from "@/store/languageStore";
-import { useCatalogStore } from "@/store/catalogStore";
 import { cn } from "@/lib/utils";
 
-interface CategoryNavProps {
-  selected?: string;
-  onSelect?: (id: string) => void;
-}
-
-export const CategoryNav = ({ selected = "all", onSelect }: CategoryNavProps) => {
+export const CategoryNav = () => {
   const { t } = useTranslation('common');
   const { direction } = useLanguageStore();
-  const categories = useCatalogStore((state) => state.categories);
   const isRTL = direction === "rtl";
+  
+  const categories = [
+    { key: "all", icon: "🛍️", active: true },
+    { key: "electronics", icon: "📱", active: false },
+    { key: "fashion", icon: "👕", active: false },
+    { key: "home", icon: "🏠", active: false },
+    { key: "sports", icon: "⚽", active: false },
+    { key: "beauty", icon: "💄", active: false },
+    { key: "books", icon: "📚", active: false },
+    { key: "toys", icon: "🎮", active: false }
+  ];
 
   return (
     <section 
@@ -34,42 +38,25 @@ export const CategoryNav = ({ selected = "all", onSelect }: CategoryNavProps) =>
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
-          <Button
-            key="all"
-            variant={selected === 'all' ? 'default' : 'outline'}
-            className={cn(
-              'h-auto p-4 flex flex-col items-center gap-2 transition-all duration-normal',
-              selected === 'all'
-                ? 'bg-primary text-primary-foreground shadow-md'
-                : 'hover:bg-primary/10 hover:border-primary hover:text-primary'
-            )}
-            onClick={() => onSelect?.('all')}
-          >
-            <span className="text-2xl">🛍️</span>
-            <span className="text-sm font-medium text-center">
-              {t('categories.all')}
-            </span>
-          </Button>
-
           {categories.map((category) => (
             <Button
-              key={category.id}
-              variant={selected === category.id ? 'default' : 'outline'}
+              key={category.key}
+              variant={category.active ? "default" : "outline"}
               className={cn(
-                'h-auto p-4 flex flex-col items-center gap-2 transition-all duration-normal',
-                selected === category.id
-                  ? 'bg-primary text-primary-foreground shadow-md'
+                "h-auto p-4 flex flex-col items-center gap-2 transition-all duration-normal",
+                category.active 
+                  ? 'bg-primary text-primary-foreground shadow-md' 
                   : 'hover:bg-primary/10 hover:border-primary hover:text-primary'
               )}
-              onClick={() => onSelect?.(category.id)}
             >
               <span className="text-2xl">{category.icon}</span>
               <span className="text-sm font-medium text-center">
-                {category.name}
+                {t(`categories.${category.key}`)}
               </span>
             </Button>
           ))}
         </div>
       </div>
     </section>
-  );};
+  );
+};

@@ -23,100 +23,37 @@ export const MobileMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          aria-label="Menu"
-        >
+        <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
           <Menu className="w-5 h-5" />
         </Button>
       </SheetTrigger>
-      {/*
-        Mobile drawer direction adjusts based on the current language.
-        Arabic (rtl) should slide from the right, English from the left.
-      */}
       <SheetContent
-        side={direction === "rtl" ? "right" : "left"}
+        side={direction === "rtl" ? "left" : "right"}
         className="flex flex-col gap-6 pt-10"
       >
         <nav className="flex flex-col gap-2">
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-            onClick={() => navigate("/")}
-          >
-            {t("categories.electronics")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-          >
-            {t("categories.fashion")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-          >
-            {t("categories.home")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-          >
-            {t("categories.sports")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-          >
-            {t("categories.books")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={direction === "rtl" ? "justify-end" : "justify-start"}
-          >
-            {t("categories.beauty")}
-          </Button>
-          <Button
-            variant="ghost"
-            className={`${direction === "rtl" ? "justify-end" : "justify-start"} text-sale`}
-          >
-            🔥 {t("navigation.deals")}
-          </Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"} onClick={() => navigate("/")}>{t('categories.electronics')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.fashion')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.home')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.sports')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.books')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.beauty')}</Button>
+          <Button variant="ghost" className={`${direction === "rtl" ? "justify-end" : "justify-start"} text-sale`}>🔥 {t('navigation.deals')}</Button>
         </nav>
         <Separator />
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative"
-            onClick={() => navigate("/wishlist")}
-            aria-label="Wishlist"
-          >
+          <Button variant="ghost" size="icon" className="relative" onClick={() => navigate('/wishlist')} aria-label="Wishlist">
             <Heart className="w-5 h-5" />
             {wishlistCount > 0 && (
-              <Badge
-                variant="secondary"
-                className="absolute -top-2 -end-2 h-5 w-5 p-0 text-xs flex items-center justify-center"
-              >
+              <Badge variant="secondary" className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs flex items-center justify-center">
                 {wishlistCount}
               </Badge>
             )}
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative"
-            onClick={() => navigate("/checkout")}
-            aria-label="Cart"
-          >
+          <Button variant="ghost" size="icon" className="relative" onClick={() => navigate('/checkout')} aria-label="Cart">
             <ShoppingCart className="w-5 h-5" />
             {cartCount > 0 && (
-              <Badge
-                variant="secondary"
-                className="absolute -top-2 -end-2 h-5 w-5 p-0 text-xs flex items-center justify-center"
-              >
+              <Badge variant="secondary" className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs flex items-center justify-center">
                 {cartCount}
               </Badge>
             )}
