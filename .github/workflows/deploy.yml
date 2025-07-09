@@ -16,14 +16,14 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3 # Set up Node.js environment
         with:
-          node-version: '20.18.3' # Update to Node.js version 18.20.4
+          node-version: '20.19.2' # Update to Node.js version 18.20.4
 
       - name: Connect to Remote Server and Run Update Commands
         uses: appleboy/ssh-action@v0.1.10 # Updated SSH action to connect to the remote server
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
-          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          key: ${{ secrets.VPS_PRIVATE_KEY }} # Use the SSH key stored in GitHub Secrets
           port: ${{ secrets.VPS_PORT }}
           script: |
             # Navigate to the project directory
@@ -52,7 +52,7 @@ jobs:
             npm run build
 
             # Ensure the build was successful before proceeding
-            if [ -d ".dist" ] && [ "$(ls -A .dist)" ]; then
+            if [ -d ".next" ] && [ "$(ls -A .next)" ]; then
               echo "Build successful!"
               npm run deploy  # Copy the build files to the public directory
             else
