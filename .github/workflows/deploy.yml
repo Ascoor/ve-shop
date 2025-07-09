@@ -32,8 +32,9 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
           script: |
-            cd /home/ve-shop.co/ve-shop/ve-shop-frontend
+            cd /home/ve-shop.co/ve-shop/
             git pull origin main
+            cd /home/ve-shop.co/ve-shop/ve-shop-frontend
             npm install
             npm run build
             npm run deploy
