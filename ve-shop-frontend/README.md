@@ -517,6 +517,12 @@ const categories = [
 // 3. Add category-specific filters
 ```
 
+### Managing Demo Products
+
+Demo categories and products are stored in the Zustand store located at `src/store/catalogStore.ts`.
+You can easily modify the initial arrays or use the provided `addCategory` and `addProduct` methods to
+extend the catalog. This setup keeps the data in-memory and makes it simple to replace with a real API later.
+
 ### Customizing Theme
 ```css
 /* Override design tokens */
