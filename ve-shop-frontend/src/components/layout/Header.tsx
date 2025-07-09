@@ -24,9 +24,6 @@ export const Header = () => {
   const { direction } = useLanguageStore();
   const isRTL = direction === "rtl";
 
-  // نفس ترتيب المناطق (zones) في جميع اللغات
-  const zones = ['logo', 'search', 'actions'];
-
   return (
     <header
       dir={direction}
@@ -44,120 +41,119 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Main header: ثلاث مناطق مرنة فقط */}
+      {/* Main header */}
       <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
-        <div className={cn(
-          "flex items-center justify-between gap-2 sm:gap-4 w-full"
-        )}>
-          {zones.map((zone) => {
-            if (zone === 'logo') {
-              return (
-                <div key="logo" className={cn(
-                  "flex items-center gap-2 min-w-[110px] sm:min-w-[140px]",
-                  isRTL ? "flex-row-reverse" : "flex-row"
+        <div className="flex items-center justify-between gap-2 sm:gap-4 w-full">
+          
+          {/* Logo Section */}
+          <div className={cn(
+            "flex items-center gap-2 min-w-[110px] sm:min-w-[140px]",
+            isRTL ? "order-3" : "order-1"
+          )}>
+            <Button
+              variant="ghost"
+              className="p-0 h-auto w-auto"
+              onClick={() => navigate('/')}
+              aria-label={t('navigation.home')}
+            >
+              <Logo />
+            </Button>
+          </div>
+
+          {/* Search Section */}
+          <div className={cn(
+            "flex-1 max-w-2xl mx-2 hidden md:block",
+            "order-2"
+          )}>
+            <div className="relative">
+              <Search
+                className={cn(
+                  "absolute top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5",
+                  isRTL ? "right-3" : "left-3"
+                )}
+              />
+              <Input
+                placeholder={t('actions.search') + "..."}
+                dir={direction}
+                className={cn(
+                  "py-3 w-full bg-muted/50 border-none focus:bg-background focus:ring-2 focus:ring-primary/20 text-base sm:text-lg",
+                  isRTL ? "pr-10 pl-4" : "pl-10 pr-4"
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Actions Section */}
+          <div className={cn(
+            "flex items-center gap-1 sm:gap-2 min-w-[100px]",
+            isRTL ? "order-1" : "order-3"
+          )}>
+            {/* Mobile Menu - Always first for RTL */}
+            <div className="md:hidden">
+              <MobileMenu />
+            </div>
+
+            {/* Action Buttons */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative hidden sm:flex" 
+              onClick={() => navigate('/wishlist')}
+              aria-label={t('navigation.wishlist')}
+            >
+              <Heart className="w-5 h-5" />
+              {wishlistCount > 0 && (
+                <Badge variant="secondary" className={cn(
+                  "absolute -top-2 h-5 w-5 flex items-center justify-center p-0 text-xs",
+                  isRTL ? "-left-2" : "-right-2"
                 )}>
-                  <Button
-                    variant="ghost"
-                    className="p-0 h-auto w-auto"
-                    onClick={() => navigate('/')}
-                    aria-label={t('actions.home')}
-                  >
-                    <Logo />
-                  </Button>
-                </div>
-              );
-            }
-            if (zone === 'search') {
-              return (
-                <div key="search" className="flex-1 max-w-2xl mx-2 hidden md:block">
-                  <div className="relative">
-                    <Search
-                      className={cn(
-                        "absolute top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5",
-                        isRTL ? "right-3" : "left-3"
-                      )}
-                    />
-                    <Input
-                      placeholder={t('actions.search') + "..."}
-                      dir={direction}
-                      className={cn(
-                        "py-3 w-full bg-muted/50 border-none focus:bg-background focus:ring-2 focus:ring-primary/20 text-base sm:text-lg",
-                        isRTL ? "pr-10 pl-4" : "pl-10 pr-4"
-                      )}
-                    />
-                  </div>
-                </div>
-              );
-            }
-            if (zone === 'actions') {
-              return (
-      // داخل منطقة actions:
-<div
-  key="actions"
-  className={cn(
-    "flex items-center gap-1 sm:gap-2 min-w-[100px]",
-    "order-3",
-    isRTL ? "justify-start" : "justify-end"
-  )}
->
-  {/* MobileMenu: المكان حسب الاتجاه */}
-  {isRTL ? (
-    <>
-      <div className="flex md:hidden order-1">
-        <MobileMenu />
-      </div>
-    </>
-  ) : null}
+                  {wishlistCount}
+                </Badge>
+              )}
+            </Button>
 
-  {/* باقي الأزرار */}
-  <Button variant="ghost" size="icon" className="relative" aria-label="Wishlist">
-    <Heart className="w-5 h-5" />
-    {wishlistCount > 0 && (
-      <Badge variant="secondary" className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
-        {wishlistCount}
-      </Badge>
-    )}
-  </Button>
-  <NotificationCenter />
-  <Button
-    variant="ghost"
-    size="icon"
-    className="relative"
-    onClick={() => navigate('/checkout')}
-    aria-label="Cart"
-  >
-    <ShoppingCart className="w-5 h-5" />
-    {cartCount > 0 && (
-      <Badge variant="secondary" className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
-        {cartCount}
-      </Badge>
-    )}
-  </Button>
-  <div className="md:hidden">
-    <MobileSearch />
-  </div>
-  <AccountDropdown />
-  <ThemeToggle />
-  <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <NotificationCenter />
+            </div>
 
-  {/* MobileMenu: النهاية إذا LTR */}
-  {!isRTL ? (
-    <div className="flex md:hidden order-last">
-      <MobileMenu />
-    </div>
-  ) : null}
-</div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={() => navigate('/checkout')}
+              aria-label={t('navigation.cart')}
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <Badge variant="secondary" className={cn(
+                  "absolute -top-2 h-5 w-5 flex items-center justify-center p-0 text-xs",
+                  isRTL ? "-left-2" : "-right-2"
+                )}>
+                  {cartCount}
+                </Badge>
+              )}
+            </Button>
 
-              );
-            }
-            return null;
-          })}
+            <div className="md:hidden">
+              <MobileSearch />
+            </div>
+
+            <div className="hidden sm:block">
+              <AccountDropdown />
+            </div>
+
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
+
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Navigation Bar */}
         <nav className={cn(
           "hidden md:flex items-center gap-4 sm:gap-6 mt-4 pt-4 border-t border-border text-base",
-          isRTL ? "justify-end" : "justify-start"
+          isRTL ? "flex-row-reverse" : "flex-row"
         )}>
           <Button variant="ghost" className="font-medium">{t('categories.electronics')}</Button>
           <Button variant="ghost" className="font-medium">{t('categories.fashion')}</Button>

@@ -28,17 +28,17 @@ export const MobileMenu = () => {
         </Button>
       </SheetTrigger>
       <SheetContent
-        side={direction === "rtl" ? "right" : "left"}
+        side={direction === "rtl" ? "left" : "right"}
         className="flex flex-col gap-6 pt-10"
       >
         <nav className="flex flex-col gap-2">
-          <Button variant="ghost" className="justify-start" onClick={() => navigate("/")}>{t('categories.electronics')}</Button>
-          <Button variant="ghost" className="justify-start">{t('categories.fashion')}</Button>
-          <Button variant="ghost" className="justify-start">{t('categories.home')}</Button>
-          <Button variant="ghost" className="justify-start">{t('categories.sports')}</Button>
-          <Button variant="ghost" className="justify-start">{t('categories.books')}</Button>
-          <Button variant="ghost" className="justify-start">{t('categories.beauty')}</Button>
-          <Button variant="ghost" className="justify-start text-sale">🔥 {t('navigation.deals')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"} onClick={() => navigate("/")}>{t('categories.electronics')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.fashion')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.home')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.sports')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.books')}</Button>
+          <Button variant="ghost" className={direction === "rtl" ? "justify-end" : "justify-start"}>{t('categories.beauty')}</Button>
+          <Button variant="ghost" className={`${direction === "rtl" ? "justify-end" : "justify-start"} text-sale`}>🔥 {t('navigation.deals')}</Button>
         </nav>
         <Separator />
         <div className="flex items-center gap-4">

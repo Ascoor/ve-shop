@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Translation files
+// Translation files - centralized in locales directory
 import enCommon from '../locales/en/common.json';
 import enProduct from '../locales/en/product.json';
 import enCart from '../locales/en/cart.json';
@@ -35,7 +35,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en', // default language
+    lng: localStorage.getItem('ve-shop-language') ? 
+      JSON.parse(localStorage.getItem('ve-shop-language') || '{}').state?.language || 'en' : 'en',
     fallbackLng: 'en',
     
     interpolation: {
@@ -53,6 +54,13 @@ i18n
     
     // Debug in development
     debug: process.env.NODE_ENV === 'development',
+    
+    // RTL/LTR detection
+    detection: {
+      order: ['localStorage', 'navigator'],
+      lookupLocalStorage: 've-shop-language',
+      caches: ['localStorage'],
+    },
   });
 
 // Handle direction change

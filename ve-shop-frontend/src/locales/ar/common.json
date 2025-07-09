@@ -11,12 +11,14 @@
   "categories": {
     "all": "جميع المنتجات",
     "electronics": "الإلكترونيات",
-    "fashion": "الأزياء",
+    "fashion": "الأزياء", 
     "home": "المنزل والحديقة",
     "sports": "الرياضة",
     "beauty": "الجمال",
     "books": "الكتب",
-    "toys": "الألعاب"
+    "toys": "الألعاب",
+    "shop_by_category": "تسوق حسب الفئة",
+    "view_all_categories": "عرض جميع الفئات"
   },
   "actions": {
     "search": "بحث",

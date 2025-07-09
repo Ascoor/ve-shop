@@ -10,13 +10,15 @@
   },
   "categories": {
     "all": "All Products",
-    "electronics": "Electronics",
+    "electronics": "Electronics", 
     "fashion": "Fashion",
     "home": "Home & Garden",
     "sports": "Sports",
     "beauty": "Beauty",
     "books": "Books",
-    "toys": "Toys & Games"
+    "toys": "Toys & Games",
+    "shop_by_category": "Shop by Category",
+    "view_all_categories": "View All Categories"
   },
   "actions": {
     "search": "Search",

@@ -28,7 +28,7 @@ const Index = () => {
                 {t('labels.featured')} {t('navigation.products')}
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {t('messages.welcome')}
+                {t('footer.company_description')}
               </p>
             </div>
             

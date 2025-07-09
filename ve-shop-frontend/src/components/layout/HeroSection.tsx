@@ -1,8 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/languageStore";
+import { cn } from "@/lib/utils";
 
 export const HeroSection = () => {
+  const { t } = useTranslation('common');
+  const { direction } = useLanguageStore();
+  const isRTL = direction === "rtl";
+
   return (
-    <section className="relative bg-gradient-hero py-20 px-4 overflow-hidden">
+    <section 
+      dir={direction}
+      className="relative bg-gradient-hero py-20 px-4 overflow-hidden"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-30">
         <div className="w-full h-full bg-background/5" style={{
@@ -11,51 +21,71 @@ export const HeroSection = () => {
       </div>
       
       <div className="container mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className={cn(
+          "grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",
+          isRTL && "lg:grid-flow-col-dense"
+        )}>
           {/* Content */}
-          <div className="text-center lg:text-left">
+          <div className={cn(
+            "text-center lg:text-left",
+            isRTL && "lg:text-right lg:order-2"
+          )}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Discover Amazing
+              {t('hero.title')}
               <span className="block bg-gradient-primary bg-clip-text text-transparent">
-                Products & Deals
+                {t('hero.title_highlight')}
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg">
-              Shop the latest trends with unbeatable prices. Free shipping, 
-              easy returns, and 24/7 customer support.
+            <p className={cn(
+              "text-lg md:text-xl text-muted-foreground mb-8 max-w-lg",
+              isRTL ? "lg:ml-auto" : "lg:mr-auto lg:ml-0"
+            )}>
+              {t('hero.subtitle')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className={cn(
+              "flex flex-col sm:flex-row gap-4 justify-center lg:justify-start",
+              isRTL && "lg:justify-end"
+            )}>
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary-hover text-primary-foreground px-8 py-4 text-lg font-semibold"
               >
-                Shop Now
+                {t('hero.shop_now')}
               </Button>
               <Button 
                 variant="outline" 
                 size="lg"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold"
               >
-                View Deals
+                {t('hero.view_deals')}
               </Button>
             </div>
           </div>
 
           {/* Hero Image */}
-          <div className="relative">
+          <div className={cn(
+            "relative",
+            isRTL && "lg:order-1"
+          )}>
             <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-primary/10 p-8">
               <img
                 src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&h=600&fit=crop"
-                alt="Shopping illustration"
+                alt={t('hero.title')}
                 className="w-full h-full object-cover rounded-xl shadow-lg"
               />
             </div>
-            {/* Floating badges */}
-            <div className="absolute -top-4 -right-4 bg-secondary text-secondary-foreground px-4 py-2 rounded-full font-semibold shadow-lg animate-bounce">
-              50% OFF
+            {/* Floating badges - positioned based on direction */}
+            <div className={cn(
+              "absolute -top-4 bg-secondary text-secondary-foreground px-4 py-2 rounded-full font-semibold shadow-lg animate-bounce",
+              isRTL ? "-left-4" : "-right-4"
+            )}>
+              {t('hero.discount_badge')}
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-success text-success-foreground px-4 py-2 rounded-full font-semibold shadow-lg">
-              Free Shipping
+            <div className={cn(
+              "absolute -bottom-4 bg-success text-success-foreground px-4 py-2 rounded-full font-semibold shadow-lg",
+              isRTL ? "-right-4" : "-left-4"
+            )}>
+              {t('hero.free_shipping_badge')}
             </div>
           </div>
         </div>

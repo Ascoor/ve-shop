@@ -219,3 +219,52 @@ All colors MUST be HSL.
     background: hsl(var(--muted-foreground) / 0.5);
   }
 }
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .ltr\:text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .ltr\:text-right {
+  text-align: left;
+}
+
+/* RTL specific flex reversals */
+[dir="rtl"] .rtl\:flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* RTL margins and paddings */
+[dir="rtl"] .rtl\:ml-auto {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+[dir="rtl"] .rtl\:mr-auto {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* Dropdown positioning */
+[dir="rtl"] .dropdown-content {
+  right: 0;
+  left: auto;
+}
+
+[dir="ltr"] .dropdown-content {
+  left: 0;
+  right: auto;
+}
+
+/* Language specific fonts */
+[lang="ar"] {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+[lang="en"] {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
