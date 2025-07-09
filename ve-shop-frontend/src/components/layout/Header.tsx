@@ -55,7 +55,7 @@ export const Header = () => {
         >
           {/* Logo Section */}
           <div className="flex items-center gap-2 min-w-[110px] sm:min-w-[140px]">
-          >
+          
             <Button
               variant="ghost"
               className="p-0 h-auto w-auto"
@@ -81,7 +81,7 @@ export const Header = () => {
 
           {/* Actions Section */}
           <div className="flex items-center gap-1 sm:gap-2 min-w-[100px]">
-          >
+          
             {/* Mobile Menu - Always first for RTL */}
             <div className="md:hidden">
               <MobileMenu />
