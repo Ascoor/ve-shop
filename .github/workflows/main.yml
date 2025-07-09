@@ -1,56 +1,28 @@
-name: Remote Update and Deploy
-
-on:
-  push:
-    branches:
-      - main # لو فرعك اسمه master غير هنا
-
-jobs:
-  remote-update-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.19.2'
-
-      - name: Connect to Remote Server and Run Update Commands
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root
-          key: ${{ secrets.VPS_PRIVATE_KEY }}
-          port: 22
-          script: |
-            # Navigate to the project directory
-            cd /home/ve-shop.co/ve-shop/ve-shop-frontend
-
-            echo "Starting remote deployment on ve-frontend..."
-
-            git stash --include-untracked
-            git pull origin main
-
-            [ -f package-lock.json ] && rm package-lock.json
-            [ -d node_modules ] && rm -rf node_modules
-
-            npm install
-            echo "npm dependencies installed."
-
-            npm run build
-
-            if [ -d "dist" ] && [ "$(ls -A dist)" ]; then
-              echo "Build successful!"
-              npm run deploy  # نفذ سكريبت النسخ الخاص بك هنا
-            else
-              echo "deploy failed!"
-              exit 1
-            fi
-
-            echo "Deployment completed successfully."
-          timeout: 3m
-          command_timeout: 15m
-          debug: true
+- name: Deploy to VPS via SSH
+  uses: appleboy/ssh-action@v0.1.10
+  with:
+    host: ${{ secrets.VPS_HOST }}
+    username: root
+    key: ${{ secrets.VPS_PRIVATE_KEY }}
+    port: 22
+    script: |
+      cd /home/ve-shop.co/ve-shop/ve-shop-frontend
+      echo "Starting remote deployment on ve-frontend..."
+      git stash --include-untracked
+      git pull origin main
+      [ -f package-lock.json ] && rm package-lock.json
+      [ -d node_modules ] && rm -rf node_modules
+      npm install
+      echo "npm dependencies installed."
+      npm run build
+      if [ -d "dist" ] && [ "$(ls -A dist)" ]; then
+        echo "Build successful!"
+        npm run deploy
+      else
+        echo "deploy failed!"
+        exit 1
+      fi
+      echo "Deployment completed successfully."
+    timeout: 3m
+    command_timeout: 15m
+    debug: true
