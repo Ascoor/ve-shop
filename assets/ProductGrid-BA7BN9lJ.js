@@ -1,0 +1,1 @@
+import{j as o}from"./index-BJd26WXb.js";import{P as a}from"./ProductCard-C8DffeB0.js";import{u as d}from"./catalogStore-CkPnFQAG.js";const g=({categoryId:s="all"})=>{const t=d(r=>r.getProductsByCategory(s));return o.jsx("div",{className:"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6",children:t.map(r=>o.jsx(a,{...r},r.id))})};export{g as P};
