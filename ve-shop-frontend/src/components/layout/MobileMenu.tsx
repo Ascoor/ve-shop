@@ -28,6 +28,7 @@ export const MobileMenu = () => {
         </Button>
       </SheetTrigger>
       <SheetContent
+        dir={direction}
         side={direction === "rtl" ? "left" : "right"}
         className="flex flex-col gap-6 pt-10"
       >
