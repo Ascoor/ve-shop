@@ -210,6 +210,41 @@ direction.
 2. The language will be lazy-loaded automatically; just ensure the files exist.
 3. Update `LanguageSwitcher` if you add a new language option.
 
+### Changing Language at Runtime
+Use the built in `LanguageSwitcher` component or call `setLanguage` from
+`useLanguageStore()` to switch languages. The hook updates i18next and the page
+direction automatically:
+
+```tsx
+import { useLanguageStore } from "@/store/languageStore";
+
+const { setLanguage } = useLanguageStore();
+
+// Switch to Arabic
+setLanguage("ar");
+```
+
+### Adding Translation Keys
+Translation strings live under `src/i18n/{lang}/{namespace}.json`.
+Simply add the same key to each language file. Example:
+
+```json
+// en/common.json
+{
+  "navigation": {
+    "home": "Home"
+  }
+}
+
+// ar/common.json
+{
+  "navigation": {
+    "home": "الرئيسية"
+  }
+}
+```
+
+
 ## 🔐 Authentication System
 
 ### Supported Methods
