@@ -28,6 +28,7 @@ export const Header = () => {
   return (
     <header
       dir={direction}
+      role="banner"
       className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border"
     >
       {/* Top bar with promotions */}
@@ -151,6 +152,7 @@ export const Header = () => {
         {/* Navigation Bar */}
         <nav
           dir={direction}
+          role="navigation"
           className={cn(
             "hidden md:flex items-center gap-4 sm:gap-6 mt-4 pt-4 border-t border-border text-base",
             isRTL ? "flex-row-reverse" : "flex-row",
