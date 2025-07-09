@@ -6,8 +6,9 @@ on:
       - main
 
 jobs:
-  remote-update-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -16,6 +17,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.18.3'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -34,3 +41,9 @@ jobs:
           timeout: 3m
           command_timeout: 15m
           debug: true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist   # غيّر هذا إذا مجلد الـ build عندك مختلف (مثلاً: build أو out)
