@@ -22,10 +22,9 @@ jobs:
         working-directory: ./ve-shop-frontend
         run: npm install
 
-      - name: Build Frontend (GitHub Pages)
+      - name: Build Frontend
         working-directory: ./ve-shop-frontend
-        # نفذ البناء مع base خاص بجيت هب بيچز
-        run: npm run build:gh
+        run: npm run build
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -39,7 +38,7 @@ jobs:
             git pull origin main
             cd ve-shop-frontend
             npm install
-            npm run build:prod
+            npm run build
             npm run deploy
             echo "Deployment completed successfully."
           timeout: 3m

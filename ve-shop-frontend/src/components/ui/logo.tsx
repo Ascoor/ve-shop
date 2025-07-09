@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@/components/ui/theme-provider";
 import { useLanguageStore } from "@/store/languageStore";
 import { cn } from "@/lib/utils";
-import { getBasePath } from "@/lib/env";
 
 export const Logo = ({ className = "" }) => {
   const { theme } = useTheme();
@@ -16,19 +15,14 @@ export const Logo = ({ className = "" }) => {
   };
   const { direction } = useLanguageStore();
 
-  // Determine the correct logo based on theme and deployment base path
-  const [logoSrc, setLogoSrc] = useState(
-    () =>
-      `${getBasePath()}${
-        getCurrentTheme() === "dark" ? "ve-logo-dark.png" : "ve-logo-day.png"
-      }`,
+  // Determine the correct logo based on theme
+  const [logoSrc, setLogoSrc] = useState(() =>
+    getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png",
   );
 
   useEffect(() => {
     setLogoSrc(
-      `${getBasePath()}${
-        getCurrentTheme() === "dark" ? "ve-logo-dark.png" : "ve-logo-day.png"
-      }`,
+      getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png",
     );
     // فقط يحدث عند تغيير الثيم
     // eslint-disable-next-line

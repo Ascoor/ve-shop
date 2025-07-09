@@ -135,10 +135,6 @@ ve-shop/
    VITE_ENABLE_ANALYTICS=true
    VITE_ENABLE_REVIEWS=true
    VITE_ENABLE_WISHLIST=true
-
-   # Deployment Base Path
-   # Set this to '/' for VPS deployments or '/ve-shop/' for GitHub Pages
-   VITE_BASE_PATH=/
    ```
 
 4. **Start development server**
@@ -152,17 +148,15 @@ ve-shop/
 
 ### Available Scripts
 
-| Command              | Description                                    |
-| -------------------- | ---------------------------------------------- |
-| `npm run dev`        | Start development server                       |
-| `npm run build`      | Build using the default base path              |
-| `npm run build:prod` | Build for VPS deployment (base path `/`)       |
-| `npm run build:gh`   | Build for GitHub Pages (base path `/ve-shop/`) |
-| `npm run preview`    | Preview production build                       |
-| `npm run lint`       | Run ESLint                                     |
-| `npm run type-check` | Run TypeScript compiler                        |
-| `npm run test`       | Run unit tests                                 |
-| `npm run test:e2e`   | Run end-to-end tests                           |
+| Command              | Description                     |
+| -------------------- | ------------------------------- |
+| `npm run dev`        | Start development server        |
+| `npm run build`      | Build for production            |
+| `npm run preview`    | Preview production build        |
+| `npm run lint`       | Run ESLint                      |
+| `npm run type-check` | Run TypeScript compiler         |
+| `npm run test`       | Run unit tests                  |
+| `npm run test:e2e`   | Run end-to-end tests            |
 
 ## 🎨 Design System
 
@@ -696,11 +690,7 @@ cp .env.example .env
 # Start development
 npm run dev
 
-
-# Build for VPS
-npm run build:prod
-
-# Build for GitHub Pages
-npm run build:gh
+# Build for production
+npm run build
 ```
 **Happy coding! 🛍️✨**

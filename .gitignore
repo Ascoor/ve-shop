@@ -28,6 +28,7 @@ desktop.ini
 /ve-shop-frontend/node_modules
 /ve-shop-frontend/dist
 /ve-shop-frontend/.env*
+!/ve-shop-frontend/.env.example
 /ve-shop-frontend/coverage
 
 # ==== BACKEND: ve-shop-backend (Laravel/PHP) ====
@@ -37,6 +38,7 @@ desktop.ini
 /ve-shop-backend/storage/*.key
 /ve-shop-backend/.env
 /ve-shop-backend/.env.*
+!/ve-shop-backend/.env.example
 /ve-shop-backend/Homestead.yaml
 /ve-shop-backend/Homestead.json
 /ve-shop-backend/.vagrant
