@@ -3,11 +3,18 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-// Dynamically set the base path:
-// - "/ve-shop/" when GITHUB_PAGES is true (for GitHub Pages)
-// - "/" for all other cases (local/dev/VPS)
+// =========================
+// شرح: 
+// - استخدم VITE_BASE_PATH من متغيرات البيئة (يمكنك ضبطه في .env أو من سكربتات build)
+// - عند GitHub Pages اجعله "/ve-shop/"، 
+// - عند VPS أو dev يكون "/" (الافتراضي)
+// - يمكنك وضعه في scripts كالتالي:
+//   "build:gh": "VITE_BASE_PATH=/ve-shop/ vite build",
+//   "build": "VITE_BASE_PATH=/ vite build"
+// =========================
+
 export default defineConfig(({ mode }) => ({
-  base: process.env.GITHUB_PAGES === "1" ? "/ve-shop/" : "/",
+  base: process.env.VITE_BASE_PATH || "/",
   server: {
     host: "::",
     port: 8080,

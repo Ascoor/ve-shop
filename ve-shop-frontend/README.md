@@ -7,6 +7,7 @@
 ## 🌟 Key Features
 
 ### 🛍️ Core E-commerce Functionality
+
 - **Product Catalog**: Advanced browsing with multi-level categories and subcategories
 - **Smart Search**: Full-text search with auto-complete and intelligent suggestions
 - **Shopping Cart**: Complete cart management with quantity adjustments
@@ -16,18 +17,21 @@
 - **Order Management**: Order history, tracking, and invoice generation
 
 ### 🌍 Internationalization & Accessibility
+
 - **Multi-language Support**: Arabic (RTL) and English (LTR) with instant switching
 - **Theme System**: Dark and light modes with persistent user preference
 - **Responsive Design**: Mobile-first approach with full device compatibility
 - **WCAG Compliance**: Full accessibility standards implementation
 
 ### 🎨 Modern Design System
+
 - **Professional UI**: Clean, trust-building design inspired by leading marketplaces
 - **Design Tokens**: Consistent color system optimized for e-commerce
 - **Smooth Animations**: Micro-interactions that enhance user experience
 - **Component Library**: Reusable, customizable UI components
 
 ### 🔧 Technical Excellence
+
 - **TypeScript**: Type-safe development with excellent IDE support
 - **Modern React**: React 18+ with hooks and functional components
 - **State Management**: Zustand for global state, React Query for server state
@@ -35,18 +39,18 @@
 
 ## 🚀 Tech Stack
 
-| Category | Technology | Purpose |
-|----------|------------|---------|
-| **Frontend** | React 18+ | UI framework |
-| **Language** | TypeScript | Type safety and developer experience |
-| **Styling** | TailwindCSS 3+ | Utility-first CSS framework |
-| **UI Components** | shadcn/ui | Beautiful, accessible component library |
-| **State Management** | Zustand | Simple, scalable state management |
-| **Data Fetching** | TanStack Query | Server state management |
-| **Routing** | React Router | Client-side routing |
-| **Internationalization** | react-i18next | Multi-language support |
-| **Build Tool** | Vite | Fast development and build |
-| **Icons** | Lucide React | Consistent icon system |
+| Category                 | Technology     | Purpose                                 |
+| ------------------------ | -------------- | --------------------------------------- |
+| **Frontend**             | React 18+      | UI framework                            |
+| **Language**             | TypeScript     | Type safety and developer experience    |
+| **Styling**              | TailwindCSS 3+ | Utility-first CSS framework             |
+| **UI Components**        | shadcn/ui      | Beautiful, accessible component library |
+| **State Management**     | Zustand        | Simple, scalable state management       |
+| **Data Fetching**        | TanStack Query | Server state management                 |
+| **Routing**              | React Router   | Client-side routing                     |
+| **Internationalization** | react-i18next  | Multi-language support                  |
+| **Build Tool**           | Vite           | Fast development and build              |
+| **Icons**                | Lucide React   | Consistent icon system                  |
 
 ## 📁 Project Structure
 
@@ -84,18 +88,21 @@ ve-shop/
 ## 🛠️ Development Setup
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm, yarn, or pnpm
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/ve-shop.git
    cd ve-shop
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -105,30 +112,37 @@ ve-shop/
    ```
 
 3. **Environment Configuration**
+
    ```bash
    cp .env.example .env
    ```
-   
+
    Configure your environment variables:
+
    ```env
    # API Configuration
    VITE_API_BASE_URL=https://your-api-endpoint.com
    VITE_API_KEY=your-api-key
-   
+
    # Payment Gateway (Optional)
    VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
    VITE_PAYPAL_CLIENT_ID=your-paypal-client-id
-   
+
    # Analytics (Optional)
    VITE_GOOGLE_ANALYTICS_ID=GA_MEASUREMENT_ID
-   
+
    # Feature Flags
    VITE_ENABLE_ANALYTICS=true
    VITE_ENABLE_REVIEWS=true
    VITE_ENABLE_WISHLIST=true
+
+   # Deployment Base Path
+   # Set this to '/' for VPS deployments or '/ve-shop/' for GitHub Pages
+   VITE_BASE_PATH=/
    ```
 
 4. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -138,15 +152,17 @@ ve-shop/
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Run TypeScript compiler |
-| `npm run test` | Run unit tests |
-| `npm run test:e2e` | Run end-to-end tests |
+| Command              | Description                                    |
+| -------------------- | ---------------------------------------------- |
+| `npm run dev`        | Start development server                       |
+| `npm run build`      | Build using the default base path              |
+| `npm run build:prod` | Build for VPS deployment (base path `/`)       |
+| `npm run build:gh`   | Build for GitHub Pages (base path `/ve-shop/`) |
+| `npm run preview`    | Preview production build                       |
+| `npm run lint`       | Run ESLint                                     |
+| `npm run type-check` | Run TypeScript compiler                        |
+| `npm run test`       | Run unit tests                                 |
+| `npm run test:e2e`   | Run end-to-end tests                           |
 
 ## 🎨 Design System
 
@@ -154,22 +170,15 @@ ve-shop/
 
 ```css
 /* Primary Colors - Trust & Professional */
---primary: hsl(214, 84%, 56%)      /* Trust Blue */
---primary-hover: hsl(214, 84%, 46%) /* Darker Blue */
-
-/* Secondary Colors - Action & Energy */
---secondary: hsl(25, 95%, 53%)      /* Action Orange */
---secondary-hover: hsl(25, 95%, 43%) /* Darker Orange */
-
-/* Status Colors */
---success: hsl(142, 76%, 36%)       /* Success Green */
---warning: hsl(38, 92%, 50%)        /* Warning Yellow */
---destructive: hsl(0, 84%, 60%)     /* Error Red */
-
-/* E-commerce Specific */
---price: hsl(142, 76%, 36%)         /* Price Green */
---sale: hsl(0, 84%, 60%)            /* Sale Red */
---rating: hsl(45, 93%, 47%)         /* Rating Gold */
+--primary: hsl(214, 84%, 56%) /* Trust Blue */
+  --primary-hover: hsl(214, 84%, 46%) /* Darker Blue */
+  /* Secondary Colors - Action & Energy */ --secondary: hsl(25, 95%, 53%)
+  /* Action Orange */ --secondary-hover: hsl(25, 95%, 43%) /* Darker Orange */
+  /* Status Colors */ --success: hsl(142, 76%, 36%) /* Success Green */
+  --warning: hsl(38, 92%, 50%) /* Warning Yellow */
+  --destructive: hsl(0, 84%, 60%) /* Error Red */ /* E-commerce Specific */
+  --price: hsl(142, 76%, 36%) /* Price Green */ --sale: hsl(0, 84%, 60%)
+  /* Sale Red */ --rating: hsl(45, 93%, 47%) /* Rating Gold */;
 ```
 
 ### Typography
@@ -188,17 +197,20 @@ ve-shop/
 ## 🌍 Internationalization (i18n)
 
 ### Supported Languages
+
 - **English (en)**: Left-to-right (LTR)
 - **Arabic (ar)**: Right-to-left (RTL)
 
 ### RTL/LTR Implementation
+
 ```javascript
 // Automatic direction switching
-const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
+const direction = i18n.language === "ar" ? "rtl" : "ltr";
 document.documentElement.dir = direction;
 ```
 
 ### Developer Notes
+
 All translation JSON files live under `src/i18n/{lang}/{namespace}.json` and are
 loaded on demand. The current language and direction are stored globally using a
 Zustand store exposed via `useLanguageStore()`. Updating the language through
@@ -206,11 +218,13 @@ this hook automatically loads the locale, switches i18next, and updates the page
 direction.
 
 ### Adding New Languages
+
 1. Create namespace files under `src/i18n/{lang}/{namespace}.json`
 2. The language will be lazy-loaded automatically; just ensure the files exist.
 3. Update `LanguageSwitcher` if you add a new language option.
 
 ### Changing Language at Runtime
+
 Use the built in `LanguageSwitcher` component or call `setLanguage` from
 `useLanguageStore()` to switch languages. The hook updates i18next and the page
 direction automatically:
@@ -225,6 +239,7 @@ setLanguage("ar");
 ```
 
 ### Adding Translation Keys
+
 Translation strings live under `src/i18n/{lang}/{namespace}.json`.
 Simply add the same key to each language file. Example:
 
@@ -244,16 +259,17 @@ Simply add the same key to each language file. Example:
 }
 ```
 
-
 ## 🔐 Authentication System
 
 ### Supported Methods
+
 - **Email/Password**: Traditional authentication
 - **Social Login**: Google, Facebook, Twitter
 - **OTP Authentication**: SMS and email verification
 - **Guest Checkout**: No registration required
 
 ### Implementation
+
 ```typescript
 // Authentication context
 const { user, login, logout, register } = useAuth();
@@ -265,12 +281,14 @@ const { hasPermission } = usePermissions();
 ## 💳 Payment Integration
 
 ### Supported Gateways
+
 - **Stripe**: Credit cards, digital wallets
 - **PayPal**: PayPal account and cards
 - **Apple Pay**: iOS devices
 - **Google Pay**: Android devices
 
 ### Implementation Pattern
+
 ```typescript
 // Payment abstraction layer
 interface PaymentProvider {
@@ -283,6 +301,7 @@ interface PaymentProvider {
 ## 📦 State Management
 
 ### Architecture
+
 ```mermaid
 graph TD
     A[UI Components] --> B[Local State]
@@ -297,6 +316,7 @@ graph TD
 ```
 
 ### Store Structure
+
 ```typescript
 // Global state stores
 interface AppState {
@@ -310,12 +330,14 @@ interface AppState {
 ## 🧪 Testing Strategy
 
 ### Testing Pyramid
+
 1. **Unit Tests**: Component testing with Jest + React Testing Library
 2. **Integration Tests**: Feature testing with user interactions
 3. **E2E Tests**: Full user journey testing with Cypress
 4. **Visual Tests**: Screenshot testing for UI consistency
 
 ### Critical Test Paths
+
 - ✅ User registration and login
 - ✅ Product search and filtering
 - ✅ Add to cart functionality
@@ -327,6 +349,7 @@ interface AppState {
 ## 📈 Performance Optimization
 
 ### Implemented Strategies
+
 - **Code Splitting**: Route-based and component-based splitting
 - **Lazy Loading**: Images and non-critical components
 - **Caching**: React Query for API response caching
@@ -334,6 +357,7 @@ interface AppState {
 - **Image Optimization**: WebP format and responsive images
 
 ### Performance Metrics Target
+
 - **First Contentful Paint**: < 1.5s
 - **Largest Contentful Paint**: < 2.5s
 - **Cumulative Layout Shift**: < 0.1
@@ -342,6 +366,7 @@ interface AppState {
 ## 🚀 Deployment
 
 ### Build Process
+
 ```bash
 # Production build
 npm run build
@@ -354,12 +379,14 @@ npm run preview
 ```
 
 ### Deployment Platforms
+
 - **Vercel**: Recommended for React applications
 - **Netlify**: Great for static sites with edge functions
 - **AWS S3 + CloudFront**: Enterprise-grade hosting
 - **GitHub Pages**: Simple deployment for demos
 
 ### Environment Configuration
+
 ```bash
 # Production environment variables
 VITE_API_BASE_URL=https://api.ve-shop.com
@@ -371,6 +398,7 @@ GITHUB_PAGES=true
 ## 🗺️ Development Roadmap
 
 ### Phase 1: Foundation (Completed ✅)
+
 - [x] Project setup and configuration
 - [x] Design system implementation
 - [x] Basic layout components (Header, Footer)
@@ -379,7 +407,9 @@ GITHUB_PAGES=true
 - [x] Responsive design foundation
 
 ### Phase 2: Core E-commerce Features (4-6 weeks)
+
 - [ ] **Authentication System** (Week 1-2)
+
   - [ ] Login/Register forms
   - [ ] Social authentication
   - [ ] Password recovery
@@ -387,6 +417,7 @@ GITHUB_PAGES=true
   - [ ] User profile management
 
 - [ ] **Shopping Cart & Checkout** (Week 2-3)
+
   - [ ] Cart state management
   - [ ] Add/remove products
   - [ ] Quantity adjustments
@@ -403,7 +434,9 @@ GITHUB_PAGES=true
   - [ ] Product comparison
 
 ### Phase 3: Enhanced Features (3-4 weeks)
+
 - [ ] **Search & Discovery** (Week 1)
+
   - [ ] Search functionality
   - [ ] Auto-complete
   - [ ] Search suggestions
@@ -411,6 +444,7 @@ GITHUB_PAGES=true
   - [ ] Popular searches
 
 - [ ] **Reviews & Ratings** (Week 2)
+
   - [ ] Review submission
   - [ ] Rating display
   - [ ] Review moderation
@@ -425,7 +459,9 @@ GITHUB_PAGES=true
   - [ ] Return/refund requests
 
 ### Phase 4: Advanced Features (4-6 weeks)
+
 - [ ] **Multi-language Support** (Week 1-2)
+
   - [ ] i18n implementation
   - [ ] Arabic (RTL) support
   - [ ] Language switcher
@@ -433,6 +469,7 @@ GITHUB_PAGES=true
   - [ ] Currency conversion
 
 - [ ] **Payment Integration** (Week 2-3)
+
   - [ ] Stripe integration
   - [ ] PayPal integration
   - [ ] Payment method storage
@@ -447,7 +484,9 @@ GITHUB_PAGES=true
   - [ ] Content management
 
 ### Phase 5: Optimization & Polish (2-3 weeks)
+
 - [ ] **Performance Optimization** (Week 1)
+
   - [ ] Bundle optimization
   - [ ] Image optimization
   - [ ] Caching strategies
@@ -462,7 +501,9 @@ GITHUB_PAGES=true
   - [ ] Security audit
 
 ### Phase 6: Advanced Features (3-4 weeks)
+
 - [ ] **Promotional System** (Week 1)
+
   - [ ] Flash deals
   - [ ] Promotional banners
   - [ ] Discount codes
@@ -470,6 +511,7 @@ GITHUB_PAGES=true
   - [ ] Affiliate system
 
 - [ ] **Recommendations** (Week 2)
+
   - [ ] Related products
   - [ ] Recently viewed
   - [ ] Personalized recommendations
@@ -486,23 +528,25 @@ GITHUB_PAGES=true
 ## 🔧 Customization Guide
 
 ### Adding New Payment Providers
+
 ```typescript
 // 1. Create provider class
 class NewPaymentProvider implements PaymentProvider {
   async initialize(config: PaymentConfig) {
     // Implementation
   }
-  
+
   async processPayment(amount: number, method: PaymentMethod) {
     // Implementation
   }
 }
 
 // 2. Register provider
-paymentManager.registerProvider('newprovider', NewPaymentProvider);
+paymentManager.registerProvider("newprovider", NewPaymentProvider);
 ```
 
 ### Adding New Product Categories
+
 ```typescript
 // 1. Update category configuration
 const categories = [
@@ -525,6 +569,7 @@ You can easily modify the initial arrays or use the provided `addCategory` and `
 extend the catalog. This setup keeps the data in-memory and makes it simple to replace with a real API later.
 
 ### Customizing Theme
+
 ```css
 /* Override design tokens */
 :root {
@@ -536,6 +581,7 @@ extend the catalog. This setup keeps the data in-memory and makes it simple to r
 ## 🔒 Security Considerations
 
 ### Implemented Security Measures
+
 - **Input Validation**: All user inputs are validated and sanitized
 - **XSS Prevention**: Content Security Policy and output encoding
 - **CSRF Protection**: Token-based CSRF protection
@@ -543,6 +589,7 @@ extend the catalog. This setup keeps the data in-memory and makes it simple to r
 - **Data Encryption**: Sensitive data encryption in transit and at rest
 
 ### Security Checklist
+
 - [ ] Regular dependency updates
 - [ ] Security headers configuration
 - [ ] API rate limiting
@@ -554,30 +601,33 @@ extend the catalog. This setup keeps the data in-memory and makes it simple to r
 ## 📊 Analytics & Monitoring
 
 ### Integrated Analytics
+
 - **User Behavior**: Page views, user journeys, conversion funnels
 - **E-commerce**: Sales, revenue, product performance
 - **Performance**: Page load times, error rates, user experience
 - **Business**: Customer acquisition, retention, lifetime value
 
 ### Monitoring Setup
+
 ```typescript
 // Analytics tracking
-analytics.track('product_view', {
+analytics.track("product_view", {
   productId: product.id,
   category: product.category,
-  price: product.price
+  price: product.price,
 });
 
 // Error monitoring
 errorReporter.captureException(error, {
   user: currentUser,
-  context: 'checkout_process'
+  context: "checkout_process",
 });
 ```
 
 ## 🤝 Contributing
 
 ### Development Workflow
+
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Commit changes: `git commit -m 'Add amazing feature'`
@@ -585,12 +635,14 @@ errorReporter.captureException(error, {
 5. Open a Pull Request
 
 ### Code Standards
+
 - **TypeScript**: Strict mode enabled
 - **ESLint**: Airbnb configuration with custom rules
 - **Prettier**: Automatic code formatting
 - **Husky**: Pre-commit hooks for quality checks
 
 ### Commit Convention
+
 ```
 feat: add user authentication
 fix: resolve cart total calculation
@@ -615,12 +667,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 ### Getting Help
+
 - **Documentation**: Check this README and inline code comments
 - **Issues**: Create a GitHub issue for bugs or feature requests
 - **Discussions**: Join our GitHub Discussions for questions
 - **Email**: contact@ve-shop.com
 
 ### Community
+
 - **Discord**: Join our Discord server
 - **Twitter**: Follow @VeShopOfficial
 - **Blog**: Read our development blog
@@ -642,7 +696,11 @@ cp .env.example .env
 # Start development
 npm run dev
 
-# Build for production
-npm run build
+
+# Build for VPS
+npm run build:prod
+
+# Build for GitHub Pages
+npm run build:gh
 ```
 **Happy coding! 🛍️✨**
