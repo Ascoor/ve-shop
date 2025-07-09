@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getBasePath } from "@/lib/env";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { I18nProvider } from "@/providers/I18nProvider";
 import { Suspense, lazy } from "react";
@@ -31,7 +32,11 @@ const App = () => {
               <div dir={direction} className={`${direction}`}>
                 <Toaster />
                 <Sonner />
-                <BrowserRouter>
+                {/*
+                 * Dynamically set the basename so routing works when the app
+                 * is served from the /ve-shop/ subfolder on GitHub Pages.
+                 */}
+                <BrowserRouter basename={getBasePath()}>
                   <Suspense
                     fallback={
                       <div className="py-20 flex justify-center">

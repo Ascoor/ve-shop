@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@/components/ui/theme-provider";
 import { useLanguageStore } from "@/store/languageStore";
 import { cn } from "@/lib/utils";
+import { getBasePath } from "@/lib/env";
 
 export const Logo = ({ className = "" }) => {
   const { theme } = useTheme();
@@ -15,14 +16,19 @@ export const Logo = ({ className = "" }) => {
   };
   const { direction } = useLanguageStore();
 
-  // حدد الشعار المناسب
-  const [logoSrc, setLogoSrc] = useState(() =>
-    getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
+  // Determine the correct logo based on theme and deployment base path
+  const [logoSrc, setLogoSrc] = useState(
+    () =>
+      `${getBasePath()}${
+        getCurrentTheme() === "dark" ? "ve-logo-dark.png" : "ve-logo-day.png"
+      }`,
   );
 
   useEffect(() => {
     setLogoSrc(
-      getCurrentTheme() === "dark" ? "/ve-logo-dark.png" : "/ve-logo-day.png"
+      `${getBasePath()}${
+        getCurrentTheme() === "dark" ? "ve-logo-dark.png" : "ve-logo-day.png"
+      }`,
     );
     // فقط يحدث عند تغيير الثيم
     // eslint-disable-next-line
@@ -37,7 +43,7 @@ export const Logo = ({ className = "" }) => {
         // متجاوب (عرض أكبر بوضوح من الطول)
         "h-10 w-28 sm:h-12 sm:w-36 md:h-14 md:w-44 object-contain transition-all duration-300",
         direction === "rtl" ? "ml-2" : "mr-2",
-        className
+        className,
       )}
       draggable={false}
     />
