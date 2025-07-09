@@ -187,7 +187,7 @@ export const OrderConfirmation = () => {
 
         <Button onClick={handleViewOrder} className="flex-1">
           {t("order.view_order_details", "View Order Details")}
-          <ArrowRight className="w-4 h-4 ml-2" />
+          <ArrowRight className="w-4 h-4 ms-2" />
         </Button>
       </div>
 
@@ -217,4 +217,5 @@ export const OrderConfirmation = () => {
         </CardContent>
       </Card>
     </div>
-  );};
+  );
+};

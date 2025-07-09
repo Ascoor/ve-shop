@@ -97,7 +97,7 @@ export const CartReview = () => {
         {items.map((item) => (
           <Card key={item.id}>
             <CardContent className="p-4">
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -157,7 +157,7 @@ export const CartReview = () => {
                   </Button>
                 </div>
 
-                <div className="text-right">
+                <div className="text-end">
                   <div className="font-semibold">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
@@ -167,7 +167,7 @@ export const CartReview = () => {
                     onClick={() => handleRemoveItem(item.id, item.name)}
                     className="text-destructive hover:text-destructive"
                   >
-                    <Trash2 className="w-4 h-4 mr-1" />
+                    <Trash2 className="w-4 h-4 me-1" />
                     {t("cart:cart.remove_item")}
                   </Button>
                 </div>
@@ -274,4 +274,5 @@ export const CartReview = () => {
         </Card>
       </div>
     </div>
-  );};
+  );
+};

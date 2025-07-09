@@ -45,7 +45,7 @@ export const CheckoutSteps = ({ currentStep }: CheckoutStepsProps) => {
 
             {/* Step Label */}
             <span
-              className={`${isRTL ? "mr-2" : "ml-2"} text-sm font-medium transition-colors ${
+              className={`ms-2 text-sm font-medium transition-colors ${
                 step.key <= currentStep
                   ? "text-foreground"
                   : "text-muted-foreground"
@@ -66,4 +66,5 @@ export const CheckoutSteps = ({ currentStep }: CheckoutStepsProps) => {
         </div>
       ))}
     </div>
-  );};
+  );
+};
