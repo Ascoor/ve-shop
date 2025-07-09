@@ -47,13 +47,14 @@ export const Header = () => {
 
       {/* Main header */}
       <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
-        <div className="flex items-center justify-between gap-2 sm:gap-4 w-full">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-2 sm:gap-4 w-full",
+            isRTL ? "flex-row-reverse" : "flex-row"
+          )}
+        >
           {/* Logo Section */}
-          <div
-            className={cn(
-              "flex items-center gap-2 min-w-[110px] sm:min-w-[140px]",
-              isRTL ? "order-3" : "order-1",
-            )}
+          <div className="flex items-center gap-2 min-w-[110px] sm:min-w-[140px]">
           >
             <Button
               variant="ghost"
@@ -66,9 +67,7 @@ export const Header = () => {
           </div>
 
           {/* Search Section */}
-          <div
-            className={cn("flex-1 max-w-2xl mx-2 hidden md:block", "order-2")}
-          >
+          <div className="flex-1 max-w-2xl mx-2 hidden md:block">
             <div className="relative">
               {/* Icon position uses logical properties */}
               <Search className="absolute top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 start-3" />
@@ -81,11 +80,7 @@ export const Header = () => {
           </div>
 
           {/* Actions Section */}
-          <div
-            className={cn(
-              "flex items-center gap-1 sm:gap-2 min-w-[100px]",
-              isRTL ? "order-1" : "order-3",
-            )}
+          <div className="flex items-center gap-1 sm:gap-2 min-w-[100px]">
           >
             {/* Mobile Menu - Always first for RTL */}
             <div className="md:hidden">
