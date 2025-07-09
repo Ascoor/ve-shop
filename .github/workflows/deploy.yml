@@ -18,10 +18,12 @@ jobs:
         with:
           node-version: '20.18.3'
 
-      - name: Install dependencies
+      - name: Install dependencies (Frontend)
+        working-directory: ./ve-shop-frontend
         run: npm install
 
-      - name: Build Project
+      - name: Build Frontend
+        working-directory: ./ve-shop-frontend
         run: npm run build
 
       - name: Deploy to VPS via SSH
@@ -34,7 +36,7 @@ jobs:
           script: |
             cd /home/ve-shop.co/ve-shop/
             git pull origin main
-            cd /home/ve-shop.co/ve-shop/ve-shop-frontend
+            cd ve-shop-frontend
             npm install
             npm run build
             npm run deploy
@@ -47,4 +49,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist   # غيّر هذا إذا مجلد الـ build عندك مختلف (مثلاً: build أو out)
+          publish_dir: ./ve-shop-frontend/dist  # أو غيّر حسب اسم مجلد build عندك
