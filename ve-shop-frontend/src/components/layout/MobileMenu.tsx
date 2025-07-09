@@ -32,8 +32,12 @@ export const MobileMenu = () => {
           <Menu className="w-5 h-5" />
         </Button>
       </SheetTrigger>
+      {/*
+        Mobile drawer direction adjusts based on the current language.
+        Arabic (rtl) should slide from the right, English from the left.
+      */}
       <SheetContent
-        side={direction === "rtl" ? "left" : "right"}
+        side={direction === "rtl" ? "right" : "left"}
         className="flex flex-col gap-6 pt-10"
       >
         <nav className="flex flex-col gap-2">
